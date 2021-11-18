@@ -35,5 +35,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": "index.js",
+  "author": "Max <26414444+maxinnes@users.noreply.github.com>",
+  "license": "MIT"
 }
