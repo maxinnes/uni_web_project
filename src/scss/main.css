@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://use.typekit.net/kfl1fxx.css");
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -3054,14 +3056,14 @@ textarea.form-control-lg {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: #0d6efd;
+  color: #000;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
     .nav-link {
       transition: none; } }
   .nav-link:hover, .nav-link:focus {
-    color: #0a58ca; }
+    color: #000; }
   .nav-link.disabled {
     color: #6c757d;
     pointer-events: none;
@@ -8672,5 +8674,15 @@ textarea.form-control-lg {
 
   .d-print-none {
     display: none !important; } }
+nav .active {
+  font-weight: bold; }
+nav a {
+  font-size: 23px;
+  font-family: 'Museo Sans', sans-serif; }
+
+.logo-text {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 72px;
+  text-align: center; }
 
 /*# sourceMappingURL=main.css.map */
