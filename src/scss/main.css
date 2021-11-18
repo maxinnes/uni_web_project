@@ -8678,15 +8678,23 @@ nav .active {
   font-weight: bold; }
 nav a {
   font-size: 23px;
-  font-family: 'museo-sans', sans-serif; }
+  font-family: "museo-sans", sans-serif; }
 
-.main-page-text {
-  font-family: 'Bebas Neue', cursive;
+.main-page-heading {
+  font-family: "Bebas Neue", cursive;
   font-size: 42px; }
 
 .logo-text {
-  font-family: 'Bebas Neue', cursive;
+  font-family: "Bebas Neue", cursive;
   font-size: 72px;
   text-align: center; }
+
+.main-page-hero-image {
+  background-image: url("../image/hero_image.jpeg");
+  background-position: center;
+  background-size: contain; }
+
+div p {
+  font-family: "museo-sans", sans-serif; }
 
 /*# sourceMappingURL=main.css.map */
