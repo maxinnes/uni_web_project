@@ -4,17 +4,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url("https://use.typekit.net/kfl1fxx.css");
 
-//$nav-link-color: $dark;
-//$nav-link-font-weight: 700;
-
 nav {
   .active {
     font-weight: bold;
   }
   a{
     font-size: 23px;
-    font-family: 'Museo Sans', sans-serif;
+    font-family: 'museo-sans', sans-serif;
   }
+}
+.main-page-text{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 42px;
 }
 
 .logo-text{
