@@ -1,17 +1,9 @@
 import React from "react";
-// Import PageComponents
-
+import HomeIndex from "./Pages/HomePage/HomeIndex";
 
 class App extends React.Component{
   render() {
-    return <div className="container mt-4">
-      <div className="row">
-
-      </div>
-      <div className="row mt-4">
-
-      </div>
-    </div>
+    return <HomeIndex/>
   }
 }
 
