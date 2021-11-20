@@ -9,24 +9,42 @@
 $main-font: 'Bebas Neue', cursive;
 $secondary-font: 'museo-sans', sans-serif;
 
+// Navigation style
 nav {
-  .active {
-    font-weight: bold; // will change this to underline
-  }
+  //.active {
+  //  font-weight: bold; // will change this to underline
+  //}
   a{
     font-size: 23px;
     font-family: $secondary-font;
   }
+  a:nth-child(1):hover ~ hr{
+    margin-left: -25%;
+  }
+  a:nth-child(2):hover ~ hr{
+    margin-left: -25%;
+  }
+  a:nth-child(3):hover ~ hr{
+    margin-left: -25%;
+  }
+  hr {
+    height: .25rem !important;
+    width: 25%;
+    margin: 0;
+    background: black;
+    border: none;
+    transition: .3s ease-in-out;
+    opacity: 1;
+  }
 }
-.main-page-heading{
-  font-family: $main-font;
-  font-size: 42px;
-}
-
 .logo-text{
   font-family: $main-font;
   font-size: 72px;
   text-align: center;
+}
+.main-page-heading{
+  font-family: $main-font;
+  font-size: 42px;
 }
 
 .main-page-hero-image{

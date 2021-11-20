@@ -7,6 +7,7 @@ class HomeNavigation extends React.Component{
             <Link className="nav-link active" to="/">Home</Link>
             <Link className="nav-link" to="/pricing">Pricing</Link>
             <Link className="nav-link" to="/about">About</Link>
+            <hr/>
             {/*<a className="nav-link active" href="/">Home</a>*/}
             {/*<a className="nav-link" href="/">Pricing</a>*/}
             {/*<a className="nav-link" href="/">About</a>*/}
