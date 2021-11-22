@@ -8674,37 +8674,18 @@ textarea.form-control-lg {
 
   .d-print-none {
     display: none !important; } }
+nav .active {
+  font-weight: bold; }
 nav a {
   font-size: 23px;
   font-family: "museo-sans", sans-serif; }
-nav .navigation-dot {
-  width: 6px;
-  height: 6px;
-  background: black;
-  border-radius: 50%;
-  opacity: 0;
-  -webkit-transform: translateX(30px);
-  transform: translateX(30px);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out; }
-nav a:nth-child(1):hover ~ .navigation-dot {
-  -webkit-transform: translateX(30px);
-  transform: translateX(30px);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  opacity: 1; }
-nav a:nth-child(2):hover ~ .navigation-dot {
-  -webkit-transform: translateX(110px);
-  transform: translateX(110px);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  opacity: 1; }
-nav a:nth-child(3):hover ~ .navigation-dot {
-  -webkit-transform: translateX(200px);
-  transform: translateX(200px);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  opacity: 1; }
+
+.logo {
+  background-image: url("../images/logo.png");
+  background-position: center;
+  background-size: contain;
+  width: 100px;
+  height: 100px; }
 
 .logo-text {
   font-family: "Bebas Neue", cursive;
