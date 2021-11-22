@@ -8677,19 +8677,33 @@ textarea.form-control-lg {
 nav a {
   font-size: 23px;
   font-family: "museo-sans", sans-serif; }
-nav a:nth-child(1):hover ~ hr {
-  margin-left: -25%; }
-nav a:nth-child(2):hover ~ hr {
-  margin-left: -25%; }
-nav a:nth-child(3):hover ~ hr {
-  margin-left: -25%; }
-nav hr {
-  height: .25rem !important;
-  width: 25%;
-  margin: 0;
+nav .navigation-dot {
+  width: 6px;
+  height: 6px;
   background: black;
-  border: none;
-  transition: .3s ease-in-out;
+  border-radius: 50%;
+  opacity: 0;
+  -webkit-transform: translateX(30px);
+  transform: translateX(30px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out; }
+nav a:nth-child(1):hover ~ .navigation-dot {
+  -webkit-transform: translateX(30px);
+  transform: translateX(30px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 1; }
+nav a:nth-child(2):hover ~ .navigation-dot {
+  -webkit-transform: translateX(110px);
+  transform: translateX(110px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 1; }
+nav a:nth-child(3):hover ~ .navigation-dot {
+  -webkit-transform: translateX(200px);
+  transform: translateX(200px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   opacity: 1; }
 
 .logo-text {

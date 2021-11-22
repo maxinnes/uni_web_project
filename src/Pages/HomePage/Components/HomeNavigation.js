@@ -3,15 +3,14 @@ import {Link} from "react-router-dom";
 
 class HomeNavigation extends React.Component{
     render() {
-        return <nav className="nav justify-content-center">
-            <Link className="nav-link active" to="/">Home</Link>
+        return [<nav className="nav justify-content-center">
+            <Link className="nav-link" to="/">Home</Link>
             <Link className="nav-link" to="/pricing">Pricing</Link>
             <Link className="nav-link" to="/about">About</Link>
-            <hr/>
-            {/*<a className="nav-link active" href="/">Home</a>*/}
-            {/*<a className="nav-link" href="/">Pricing</a>*/}
-            {/*<a className="nav-link" href="/">About</a>*/}
-        </nav>
+        </nav>,
+            <div className="navigation-dot-container">
+                <div className="navigation-dot" />
+            </div>]
     }
 }
 
