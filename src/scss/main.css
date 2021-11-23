@@ -87,6 +87,7 @@ hr:not([size]) {
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
+  font-family: "Bebas Neue", cursive;
   font-weight: 500;
   line-height: 1.2; }
 
@@ -8674,11 +8675,49 @@ textarea.form-control-lg {
 
   .d-print-none {
     display: none !important; } }
-nav .active {
-  font-weight: bold; }
-nav a {
-  font-size: 23px;
-  font-family: "museo-sans", sans-serif; }
+nav ul {
+  list-style: none;
+  text-align: center; }
+  nav ul li {
+    display: inline-block; }
+    nav ul li a {
+      font-size: 23px;
+      font-family: "museo-sans", sans-serif;
+      text-decoration: none;
+      transition: all .5s;
+      position: relative;
+      z-index: 1; }
+    nav ul li a.active {
+      color: white !important; }
+    nav ul li a.active:after {
+      opacity: 1;
+      visibility: visible;
+      height: 100%; }
+    nav ul li a:hover {
+      color: white !important; }
+    nav ul li a:before {
+      transition: all .5s; }
+    nav ul li a:after {
+      transition: all .5s;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      width: 100%;
+      height: 1px;
+      content: '.';
+      color: transparent;
+      background: black;
+      visibility: hidden;
+      opacity: 0;
+      z-index: -1; }
+    nav ul li a:hover:after {
+      opacity: 1;
+      visibility: visible;
+      height: 100%; }
 
 .logo {
   background-image: url("../images/logo.png");
@@ -8686,15 +8725,6 @@ nav a {
   background-size: contain;
   width: 100px;
   height: 100px; }
-
-.logo-text {
-  font-family: "Bebas Neue", cursive;
-  font-size: 72px;
-  text-align: center; }
-
-.main-page-heading {
-  font-family: "Bebas Neue", cursive;
-  font-size: 42px; }
 
 .main-page-hero-image {
   background-image: url("../images/hero_image.jpeg");
