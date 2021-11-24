@@ -2,7 +2,7 @@ import React from "react";
 
 class HomePageContents extends React.Component{
     render() {
-        return <div className="row mt-4">
+        return <div className="row mt-5">
                 <div className="col-md-1"/>
                 <div className="col-md-5 bg-secondary p-5">
                     <h1 className="main-page-heading">Make shopping simpler</h1>

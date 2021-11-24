@@ -7,15 +7,24 @@ class LoginModal extends React.Component{
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h4 className="modal-title" id="exampleModalLabel">Login</h4>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
                         </div>
                         <div className="modal-body">
-                            ...
+                            <form>
+                                <div className="form-floating mt-3">
+                                    <input className="form-control" type="email" id="emailInput" placeholder="name@example.com"/>
+                                    <label htmlFor="emailInput">Email Address</label>
+                                </div>
+                                <div className="form-floating mt-3">
+                                    <input className="form-control" type="password" id="passwordInput" placeholder="Password"/>
+                                    <label htmlFor="passwordInput">Password</label>
+                                </div>
+                            </form>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-dark">Save changes</button>
+                            <button type="button" className="btn btn-dark">Submit</button>
                         </div>
                     </div>
                 </div>
