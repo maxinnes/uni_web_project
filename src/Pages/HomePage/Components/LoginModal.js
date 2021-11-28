@@ -13,11 +13,11 @@ class LoginModal extends React.Component{
                         <div className="modal-body">
                             <form>
                                 <div className="form-floating mt-3">
-                                    <input className="form-control" type="email" id="emailInput" placeholder="name@example.com"/>
+                                    <input className="form-control" type="email" id="loginEmailInput" placeholder="name@example.com"/>
                                     <label htmlFor="emailInput">Email Address</label>
                                 </div>
                                 <div className="form-floating mt-3">
-                                    <input className="form-control" type="password" id="passwordInput" placeholder="Password"/>
+                                    <input className="form-control" type="password" id="loginPasswordInput" placeholder="Password"/>
                                     <label htmlFor="passwordInput">Password</label>
                                 </div>
                             </form>
