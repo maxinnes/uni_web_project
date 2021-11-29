@@ -1,6 +1,16 @@
 import React from "react";
 
 class CreateAccountModal extends React.Component{
+    // verifyAndSubmit(){
+    //     // Get form details
+    //     let firstName = document.getElementById("registerFirstNameInput").value;
+    //     let lastName = document.getElementById("registerLastNameInput").value;
+    //     let email = document.getElementById("registerEmailInput").value;
+    //     let password = document.getElementById("registerPasswordInput").value;
+    //     let verifyPassword = document.getElementById("registerVerifyPasswordInput").value;
+    //
+    //
+    // }
     submitFormDetails(){
         // Get form details
         let firstName = document.getElementById("registerFirstNameInput").value;
@@ -9,15 +19,19 @@ class CreateAccountModal extends React.Component{
         let password = document.getElementById("registerPasswordInput").value;
         let verifyPassword = document.getElementById("registerVerifyPasswordInput").value;
 
+        //if(password!==verifyPassword){
+            //throw new Error()
+        //}
+
         // Create request
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         let raw = JSON.stringify({
-            "firstName": "Sam",
-            "lastName": "Timothy",
-            "email": "tim.123.sam2@email.com",
-            "password": "12345"
+            "firstName": firstName,
+            "lastName": lastName,
+            "email": email,
+            "password": password
         });
 
         let requestOptions = {
@@ -52,6 +66,9 @@ class CreateAccountModal extends React.Component{
                             <div className="form-floating mt-3">
                                 <input required className="form-control" type="text" id="RegisterLastNameInput" placeholder="Last Name"/>
                                 <label htmlFor="RegisterLastNameInput">Last Name</label>
+                                <div className="invalid-feedback">
+                                    Last Name Required.
+                                </div>
                             </div>
                             <div className="form-floating mt-3">
                                 <input required className="form-control" type="email" id="registerEmailInput" placeholder="name@example.com"/>
@@ -66,6 +83,7 @@ class CreateAccountModal extends React.Component{
                                 <label htmlFor="registerVerifyPasswordInput">Verify Password</label>
                             </div>
                         </form>
+                        <p>Sample text</p>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
