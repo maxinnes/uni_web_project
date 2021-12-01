@@ -64,9 +64,7 @@ class CreateAccountModal extends React.Component{
     //         }
     //     }
     // }
-
     
-
     render() {
         return <div className="modal fade" id="createAccountModal" tabIndex="-1" aria-labelledby="createAccountModal" aria-hidden="true">
             <div className="modal-dialog">
