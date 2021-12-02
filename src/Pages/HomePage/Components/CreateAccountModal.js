@@ -58,17 +58,20 @@ class CreateAccountModal extends React.Component{
             passwordVerifyElement.classList.remove("is-invalid")
         }
     }
-    validateAndSubmitForm(){
-        // const firstName = document.getElementById("registerFirstName").value
-        // const lastName = document.getElementById("registerLastName").value
-        // const email = document.getElementById("registerEmailName").value
-        // const password = document.getElementById("registerPassword").value
-        // const verifyPassword = document.getElementById("registerPassword").value
-
-        const test1 = document.getElementById("toastError")
-        const toast = new bootstrap.Toast(test1)
-        this.setState("toastMessage",)
+    displayErrorToast = (message)=>{
+        const errorToast = document.getElementById("toastError")
+        const toast = new bootstrap.Toast(errorToast)
+        this.setState({toastMessage:message})
         toast.show()
+    }
+    validateAndSubmitForm = ()=>{
+        const firstName = document.getElementById("registerFirstName").value
+        const lastName = document.getElementById("registerLastName").value
+        const email = document.getElementById("registerEmailName").value
+        const password = document.getElementById("registerPassword").value
+        const verifyPassword = document.getElementById("registerPassword").value
+
+        
 
     }
     render() {
@@ -114,7 +117,7 @@ class CreateAccountModal extends React.Component{
                     </div>
                 </div>
             </div>
-            <div className="toast-container">
+            <div className="toast-container position-absolute bottom-0 end-0 mb-5 me-5">
                 <div id="toastError" className="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
                     <div className="d-flex">
                         <div className="toast-body">{this.state.toastMessage}</div>
