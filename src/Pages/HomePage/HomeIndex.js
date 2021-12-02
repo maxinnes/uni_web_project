@@ -6,6 +6,7 @@ import PricingPageContents from "./Components/PricingPageContents";
 import AboutPageContents from "./Components/AboutPageContents";
 import LoginModal from "./Components/LoginModal";
 import CreateAccountModal from "./Components/CreateAccountModal";
+//import ToastManager from "./Components/ToastManager";
 
 class HomeIndex extends React.Component{
     render() {

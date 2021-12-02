@@ -1,14 +1,11 @@
 import React from "react";
+import * as bootstrap from 'bootstrap';
 
 class CreateAccountModal extends React.Component{
     constructor(props) {
         super(props);
-        this.errorList = {
-            "firstNameError":false,
-            "lastNameError":false,
-            "emailNameError":false,
-            "passwordNameError":false,
-            "verifyPasswordNameError":false
+        this.state = {
+            toastMessage:"Sample text"
         }
     }
     nameValidation(event){
@@ -62,11 +59,17 @@ class CreateAccountModal extends React.Component{
         }
     }
     validateAndSubmitForm(){
-        const firstName = document.getElementById("registerFirstName").value
-        const lastName = document.getElementById("registerLastName").value
-        const email = document.getElementById("registerEmailName").value
-        const password = document.getElementById("registerPassword").value
-        const verifyPassword = document.getElementById("registerPassword").value
+        // const firstName = document.getElementById("registerFirstName").value
+        // const lastName = document.getElementById("registerLastName").value
+        // const email = document.getElementById("registerEmailName").value
+        // const password = document.getElementById("registerPassword").value
+        // const verifyPassword = document.getElementById("registerPassword").value
+
+        const test1 = document.getElementById("toastError")
+        const toast = new bootstrap.Toast(test1)
+        this.setState("toastMessage",)
+        toast.show()
+
     }
     render() {
         return <div className="modal fade" id="createAccountModal" tabIndex="-1" aria-labelledby="createAccountModal" aria-hidden="true">
@@ -107,7 +110,15 @@ class CreateAccountModal extends React.Component{
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" className="btn btn-dark">Submit</button>
+                        <button onClick={this.validateAndSubmitForm} type="submit" className="btn btn-dark">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div className="toast-container">
+                <div id="toastError" className="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div className="d-flex">
+                        <div className="toast-body">{this.state.toastMessage}</div>
+                        <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"/>
                     </div>
                 </div>
             </div>
