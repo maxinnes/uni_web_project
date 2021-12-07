@@ -2,10 +2,43 @@ import React from "react";
 import * as bootstrap from 'bootstrap';
 
 class CreateAccountModal extends React.Component{
+
+    modalAccountCreatedPage = [<h2 className="">Account Created</h2>,
+    <p className="">Please check your email.</p>]
+
+    modalCreateAccountForm = <form noValidate className="needs-validation">
+        <div className="form-floating mt-3">
+            <input onChange={(event)=>{this.nameValidation(event.target)}} required className="form-control" type="text" id="registerFirstNameInput" placeholder="First Name"/>
+            <div className="invalid-feedback" />
+            <label htmlFor="registerFirstNameInput">First Name</label>
+        </div>
+        <div className="form-floating mt-3">
+            <input onChange={(event)=>{this.nameValidation(event.target)}} required className="form-control" type="text" id="registerLastNameInput" placeholder="Last Name"/>
+            <div className="invalid-feedback" />
+            <label htmlFor="RegisterLastNameInput">Last Name</label>
+        </div>
+        <div className="form-floating mt-3">
+            <input onChange={(event)=>{this.emailValidation(event.target)}} required className="form-control" type="email" id="registerEmailInput" placeholder="name@example.com"/>
+            <div className="invalid-feedback"/>
+            <label htmlFor="registerEmailInput">Email Address</label>
+        </div>
+        <div className="form-floating mt-3">
+            <input onChange={(event)=>{this.passwordValidation(event.target)}} required className="form-control" type="password" id="registerPasswordInput" placeholder="Password"/>
+            <div className="invalid-feedback"/>
+            <label htmlFor="registerPasswordInput">Password</label>
+        </div>
+        <div className="form-floating my-3">
+            <input onChange={(event)=>{this.passwordVerifyValidation(event.target)}} required className="form-control" type="password" id="registerVerifyPasswordInput" placeholder="Verify Password"/>
+            <div className="invalid-feedback"/>
+            <label htmlFor="registerVerifyPasswordInput">Verify Password</label>
+        </div>
+    </form>
+
     constructor(props) {
         super(props);
         this.state = {
-            toastMessage:"Sample text"
+            toastMessage:"Sample text",
+            modalBody: this.modalCreateAccountForm
         }
     }
     nameValidation(element){
@@ -42,7 +75,7 @@ class CreateAccountModal extends React.Component{
         }
     }
     passwordValidation(element){
-        document.getElementById("registerVerifyPasswordInput").value = ""
+        //document.getElementById("registerVerifyPasswordInput").value = ""
         const passwordInputElement = element
         const password = passwordInputElement.value
 
@@ -75,12 +108,13 @@ class CreateAccountModal extends React.Component{
         toast.show()
     }
     validateAndSubmitForm = ()=>{
+        // Get form elements
         const firstNameElement = document.getElementById("registerFirstNameInput")
         const lastNameElement = document.getElementById("registerLastNameInput")
         const emailElement = document.getElementById("registerEmailInput")
         const passwordElement = document.getElementById("registerPasswordInput")
-        const verifyPasswordElement = document.getElementById("registerPasswordInput")
-
+        const verifyPasswordElement = document.getElementById("registerVerifyPasswordInput")
+        // Check form before submit
         if(!this.nameValidation(firstNameElement) || !this.nameValidation(lastNameElement)){
             this.displayErrorToast("Error with first or last name field")
         }else if(!this.emailValidation(emailElement)){
@@ -95,7 +129,7 @@ class CreateAccountModal extends React.Component{
             const lastName = lastNameElement.value
             const email = emailElement.value
             const password = passwordElement.value
-            const verifyPassword = verifyPasswordElement.value
+            // const verifyPassword = verifyPasswordElement.value
 
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -107,8 +141,19 @@ class CreateAccountModal extends React.Component{
             });
             const requestOptions = {method: 'POST', headers: myHeaders, body: raw, redirect: 'follow'};
             fetch("http://localhost/api/accounts/createAccount.php", requestOptions)
-                .then(async response => console.log(JSON.parse(await response.text())))
-                .then(result => console.log(result))
+                .then(async serverResponse =>{
+                    const jsonResponse = await serverResponse.json()
+                    switch (jsonResponse.messageType){
+                        case "SUCCESS":
+                            this.setState({modalBody:this.modalAccountCreatedPage})
+                            break
+                        case "ERROR":
+                            this.displayErrorToast(jsonResponse.message)
+                            break
+                        default:
+                            this.displayErrorToast("Something went wrong")
+                    }
+                })
                 .catch(error => console.log('error', error));
         }
     }
@@ -121,33 +166,7 @@ class CreateAccountModal extends React.Component{
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
                     </div>
                     <div className="modal-body">
-                        <form noValidate className="needs-validation">
-                            <div className="form-floating mt-3">
-                                <input onChange={(event)=>{this.nameValidation(event.target)}} required className="form-control" type="text" id="registerFirstNameInput" placeholder="First Name"/>
-                                <div className="invalid-feedback" />
-                                <label htmlFor="registerFirstNameInput">First Name</label>
-                            </div>
-                            <div className="form-floating mt-3">
-                                <input onChange={(event)=>{this.nameValidation(event.target)}} required className="form-control" type="text" id="registerLastNameInput" placeholder="Last Name"/>
-                                <div className="invalid-feedback" />
-                                <label htmlFor="RegisterLastNameInput">Last Name</label>
-                            </div>
-                            <div className="form-floating mt-3">
-                                <input onChange={(event)=>{this.emailValidation(event.target)}} required className="form-control" type="email" id="registerEmailInput" placeholder="name@example.com"/>
-                                <div className="invalid-feedback"/>
-                                <label htmlFor="registerEmailInput">Email Address</label>
-                            </div>
-                            <div className="form-floating mt-3">
-                                <input onChange={(event)=>{this.passwordValidation(event.target)}} required className="form-control" type="password" id="registerPasswordInput" placeholder="Password"/>
-                                <div className="invalid-feedback"/>
-                                <label htmlFor="registerPasswordInput">Password</label>
-                            </div>
-                            <div className="form-floating my-3">
-                                <input onChange={(event)=>{this.passwordVerifyValidation(event.target)}} required className="form-control" type="password" id="registerVerifyPasswordInput" placeholder="Verify Password"/>
-                                <div className="invalid-feedback"/>
-                                <label htmlFor="registerVerifyPasswordInput">Verify Password</label>
-                            </div>
-                        </form>
+                        {this.state.modalBody}
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
