@@ -3,6 +3,8 @@ import * as bootstrap from 'bootstrap';
 
 class CreateAccountModal extends React.Component{
 
+    submitButton = <button onClick={()=>this.validateAndSubmitForm()} type="submit" className="btn btn-dark">Submit</button>
+
     modalAccountCreatedPage = [<h2 className="">Account Created</h2>,
     <p className="">Please check your email.</p>]
 
@@ -38,7 +40,8 @@ class CreateAccountModal extends React.Component{
         super(props);
         this.state = {
             toastMessage:"Sample text",
-            modalBody: this.modalCreateAccountForm
+            modalBody: this.modalCreateAccountForm,
+            submitButton: this.submitButton
         }
     }
     nameValidation(element){
@@ -146,6 +149,7 @@ class CreateAccountModal extends React.Component{
                     switch (jsonResponse.messageType){
                         case "SUCCESS":
                             this.setState({modalBody:this.modalAccountCreatedPage})
+                            this.displaySubmitButton(false)
                             break
                         case "ERROR":
                             this.displayErrorToast(jsonResponse.message)
@@ -155,6 +159,13 @@ class CreateAccountModal extends React.Component{
                     }
                 })
                 .catch(error => console.log('error', error));
+        }
+    }
+    displaySubmitButton(option){
+        if(option){
+            this.setState({submitButton:this.submitButton})
+        } else{
+            this.setState({submitButton:null})
         }
     }
     render() {
@@ -170,7 +181,7 @@ class CreateAccountModal extends React.Component{
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button onClick={this.validateAndSubmitForm} type="submit" className="btn btn-dark">Submit</button>
+                        {this.state.submitButton}
                     </div>
                 </div>
             </div>
