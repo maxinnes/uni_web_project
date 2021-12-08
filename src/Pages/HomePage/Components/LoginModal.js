@@ -76,7 +76,14 @@ class LoginModal extends React.Component{
             fetch("http://localhost/api/accounts/login.php", requestOptions)
                 .then(async response => {
                     const jsonResponse = await response.json()
-                    console.log(jsonResponse)
+                    switch(jsonResponse.messageType){
+                        case "SUCCESS":
+                            //console.log()
+                            break
+                        case "ERROR":
+
+                            break
+                    }
                 })
                 .catch(error => console.log('error', error));
         }
