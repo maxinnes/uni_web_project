@@ -2,10 +2,25 @@ import React from "react";
 import * as bootstrap from "bootstrap";
 
 class LoginModal extends React.Component{
+
+    loginForm = <form>
+        <div className="form-floating mt-3">
+            <input onChange={event=>this.emailValidation(event.target)} className="form-control" type="email" id="loginEmailInput" placeholder="name@example.com"/>
+            <div className="invalid-feedback" />
+            <label htmlFor="emailInput">Email Address</label>
+        </div>
+        <div className="form-floating mt-3">
+            <input onChange={event=>this.passwordValidation(event.target)} className="form-control" type="password" id="loginPasswordInput" placeholder="Password"/>
+            <div className="invalid-feedback" />
+            <label htmlFor="passwordInput">Password</label>
+        </div>
+    </form>
+
     constructor(props) {
         super(props);
         this.state = {
-            toastMessage: "Sample message"
+            toastMessage: "Sample message",
+            modalBody: this.loginForm
         }
     }
     emailValidation(element){
@@ -39,7 +54,7 @@ class LoginModal extends React.Component{
         }
     }
     displayErrorToast = (message)=>{
-        const errorToast = document.getElementById("toastError")
+        const errorToast = document.getElementById("loginToastError")
         const toast = new bootstrap.Toast(errorToast)
         this.setState({toastMessage:message})
         toast.show()
@@ -78,10 +93,11 @@ class LoginModal extends React.Component{
                     const jsonResponse = await response.json()
                     switch(jsonResponse.messageType){
                         case "SUCCESS":
-                            //console.log()
+                            // this.setState({modalBody:<h2>Logged in</h2>})
+                            window.location.assign("/account")
                             break
                         case "ERROR":
-
+                            this.displayErrorToast(jsonResponse.message)
                             break
                     }
                 })
@@ -98,18 +114,7 @@ class LoginModal extends React.Component{
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
                         </div>
                         <div className="modal-body">
-                            <form>
-                                <div className="form-floating mt-3">
-                                    <input onChange={event=>this.emailValidation(event.target)} className="form-control" type="email" id="loginEmailInput" placeholder="name@example.com"/>
-                                    <div className="invalid-feedback" />
-                                    <label htmlFor="emailInput">Email Address</label>
-                                </div>
-                                <div className="form-floating mt-3">
-                                    <input onChange={event=>this.passwordValidation(event.target)} className="form-control" type="password" id="loginPasswordInput" placeholder="Password"/>
-                                    <div className="invalid-feedback" />
-                                    <label htmlFor="passwordInput">Password</label>
-                                </div>
-                            </form>
+                            {this.state.modalBody}
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -118,7 +123,7 @@ class LoginModal extends React.Component{
                     </div>
                 </div>
                 <div className="toast-container position-absolute bottom-0 end-0 mb-5 me-5">
-                    <div id="toastError" className="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div id="loginToastError" className="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
                         <div className="d-flex">
                             <div className="toast-body">{this.state.toastMessage}</div>
                             <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"/>

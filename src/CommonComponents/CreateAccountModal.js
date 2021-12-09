@@ -105,7 +105,7 @@ class CreateAccountModal extends React.Component{
         }
     }
     displayErrorToast = (message)=>{
-        const errorToast = document.getElementById("toastError")
+        const errorToast = document.getElementById("registerToastError")
         const toast = new bootstrap.Toast(errorToast)
         this.setState({toastMessage:message})
         toast.show()
@@ -132,7 +132,6 @@ class CreateAccountModal extends React.Component{
             const lastName = lastNameElement.value
             const email = emailElement.value
             const password = passwordElement.value
-            // const verifyPassword = verifyPasswordElement.value
 
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -140,7 +139,6 @@ class CreateAccountModal extends React.Component{
                 "firstName": firstName,
                 "lastName": lastName,
                 "email": email,
-                "password": password
             });
             const requestOptions = {method: 'POST', headers: myHeaders, body: raw, redirect: 'follow'};
             fetch("http://localhost/api/accounts/createAccount.php", requestOptions)
@@ -186,7 +184,7 @@ class CreateAccountModal extends React.Component{
                 </div>
             </div>
             <div className="toast-container position-absolute bottom-0 end-0 mb-5 me-5">
-                <div id="toastError" className="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div id="registerToastError" className="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
                     <div className="d-flex">
                         <div className="toast-body">{this.state.toastMessage}</div>
                         <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"/>
