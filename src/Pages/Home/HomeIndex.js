@@ -1,7 +1,7 @@
 import React from "react";
 import HomePageNavigation from "../../CommonComponents/HomePageNavigation";
-import LoginModal from "../../CommonComponents/LoginModal";
-import CreateAccountModal from "../../CommonComponents/CreateAccountModal";
+import LoginModal from "../../CommonComponents/modals/LoginModal";
+import CreateAccountModal from "../../CommonComponents/modals/CreateAccountModal";
 
 class HomeIndex extends React.Component{
 
