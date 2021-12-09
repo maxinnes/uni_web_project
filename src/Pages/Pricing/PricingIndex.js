@@ -1,5 +1,5 @@
 import React from "react";
-import HomePageNavigation from "../../CommonComponents/HomePageNavigation";
+import HomePageNavigation from "../../CommonComponents/nav/HomePageNavigation";
 import LoginModal from "../../CommonComponents/modals/LoginModal";
 import CreateAccountModal from "../../CommonComponents/modals/CreateAccountModal";
 

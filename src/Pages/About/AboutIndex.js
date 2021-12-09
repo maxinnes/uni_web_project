@@ -1,5 +1,5 @@
 import React from "react";
-import HomePageNavigation from "../../CommonComponents/HomePageNavigation";
+import HomePageNavigation from "../../CommonComponents/nav/HomePageNavigation";
 
 function AboutIndex(){
     return [<HomePageNavigation />,

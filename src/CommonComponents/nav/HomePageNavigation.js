@@ -1,11 +1,10 @@
-import React from "react";
+import {memo} from "react";
 import Logo from "./Logo";
 import HomeNavigation from "./HomeNavigation";
 import AccountButtons from "./AccountButtons";
 
-class HomePageNavigation extends React.Component{
-    render() {
-        return <div className="row">
+function HomePageNavigation(){
+    return <div className="row">
             <div className="col-md-3">
                 <Logo/>
             </div>
@@ -16,7 +15,6 @@ class HomePageNavigation extends React.Component{
                 <AccountButtons/>
             </div>
         </div>
-    }
 }
 
-export default HomePageNavigation;
+export default memo(HomePageNavigation);
