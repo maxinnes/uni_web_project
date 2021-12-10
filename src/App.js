@@ -1,19 +1,18 @@
 import React from "react";
-import HomeIndex from "./Pages/Home/HomeIndex";
+import HomeIndex from "./Pages/HomeIndex";
 import {Route, Routes} from "react-router-dom";
-import PricingIndex from "./Pages/Pricing/PricingIndex";
-import AboutIndex from "./Pages/About/AboutIndex";
+import PricingIndex from "./Pages/PricingIndex";
+import AboutIndex from "./Pages/AboutIndex";
+import WelcomePages from "./Layouts/WelcomePages";
 
-// TODO Im going to have to separate all the pages
-
-class App extends React.Component{
-  render() {
-    return <Routes>
-      <Route path="/" element={<HomeIndex/>} />
-      <Route path="pricing" element={<PricingIndex/>} />
-      <Route path="about" element={<AboutIndex />} />
-    </Routes>
-  }
+function App(){
+  return <Routes>
+    <Route exact path="/" element={<WelcomePages/>}>
+      <Route index element={<HomeIndex/>} />
+      <Route path="/pricing" element={<PricingIndex/>} />
+      <Route path="/about" element={<AboutIndex/>} />
+    </Route>
+  </Routes>
 }
 
 export default App;

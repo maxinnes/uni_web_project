@@ -93,8 +93,8 @@ class LoginModal extends React.Component{
                     const jsonResponse = await response.json()
                     switch(jsonResponse.messageType){
                         case "SUCCESS":
-                            // this.setState({modalBody:<h2>Logged in</h2>})
-                            window.location.assign("/account")
+                            this.setState({modalBody:<h2>Logged in</h2>})
+                            //window.location.assign("/account")
                             break
                         case "ERROR":
                             this.displayErrorToast(jsonResponse.message)

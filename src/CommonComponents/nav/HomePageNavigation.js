@@ -1,4 +1,3 @@
-import {memo} from "react";
 import Logo from "./Logo";
 import HomeNavigation from "./HomeNavigation";
 import AccountButtons from "./AccountButtons";
@@ -17,4 +16,4 @@ function HomePageNavigation(){
         </div>
 }
 
-export default memo(HomePageNavigation);
+export default HomePageNavigation;

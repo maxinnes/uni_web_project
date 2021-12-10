@@ -1,11 +1,5 @@
-import React from "react";
-import HomePageNavigation from "../../CommonComponents/nav/HomePageNavigation";
-import LoginModal from "../../CommonComponents/modals/LoginModal";
-import CreateAccountModal from "../../CommonComponents/modals/CreateAccountModal";
-
 function PricingIndex(){
-    return [<HomePageNavigation/>,
-        <div className="row mt-4">
+    return <div className="row mt-4">
         <div className="col-md-1"/>
         <div className="col-md">
             <div className="card">
@@ -53,9 +47,7 @@ function PricingIndex(){
             </div>
         </div>
         <div className="col-md-1"/>
-    </div>,
-    <LoginModal/>,
-    <CreateAccountModal/>]
+    </div>
 }
 
 export default PricingIndex
