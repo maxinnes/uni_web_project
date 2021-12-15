@@ -1,4 +1,4 @@
-function PricingIndex(){
+export default function PricingIndex(){
     return <div className="row mt-4">
         <div className="col-md-1"/>
         <div className="col-md">
@@ -49,5 +49,3 @@ function PricingIndex(){
         <div className="col-md-1"/>
     </div>
 }
-
-export default PricingIndex

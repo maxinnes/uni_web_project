@@ -85,20 +85,23 @@ class LoginModal extends React.Component{
                 method: 'POST',
                 headers: myHeaders,
                 body: raw,
-                redirect: 'follow'
+                redirect: 'follow',
+                mode:'cors'
             };
 
-            fetch("http://localhost/api/accounts/login.php", requestOptions)
+            fetch("/api/accounts/login.php", requestOptions)
                 .then(async response => {
                     const jsonResponse = await response.json()
                     switch(jsonResponse.messageType){
                         case "SUCCESS":
-                            this.setState({modalBody:<h2>Logged in</h2>})
-                            //window.location.assign("/account")
+                            //this.setState({modalBody:<h2>Logged in</h2>})
+                            window.location.assign("/account")
                             break
                         case "ERROR":
                             this.displayErrorToast(jsonResponse.message)
                             break
+                        default:
+                            this.displayErrorToast("Something went wrong.")
                     }
                 })
                 .catch(error => console.log('error', error));

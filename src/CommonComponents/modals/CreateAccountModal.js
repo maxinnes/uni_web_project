@@ -132,6 +132,7 @@ class CreateAccountModal extends React.Component{
             const lastName = lastNameElement.value
             const email = emailElement.value
             const password = passwordElement.value
+            const verifyPassword = verifyPasswordElement.value
 
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -139,10 +140,11 @@ class CreateAccountModal extends React.Component{
                 "firstName": firstName,
                 "lastName": lastName,
                 "email": email,
-                "password":password
+                "password":password,
+                "verifyPassword":verifyPassword
             });
             const requestOptions = {method: 'POST', headers: myHeaders, body: raw, redirect: 'follow'};
-            fetch("http://localhost/api/accounts/createAccount.php", requestOptions)
+            fetch("/api/accounts/createAccount.php", requestOptions)
                 .then(async serverResponse =>{
                     const jsonResponse = await serverResponse.json()
                     switch (jsonResponse.messageType){
