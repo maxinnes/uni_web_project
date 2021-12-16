@@ -7,6 +7,7 @@ import WelcomePages from "./Layouts/WelcomePages";
 import AccountIndex from "./Pages/AccountIndex";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "./AuthContext";
+import AccountDashboardLayout from "./Layouts/AccountDashboardLayout";
 
 export default function App(){
   return <AuthProvider>
@@ -16,8 +17,8 @@ export default function App(){
         <Route path="pricing" element={<PricingIndex/>} />
         <Route path="about" element={<AboutIndex/>}/>
         <Route path="verify/:verificationCode" element={<VerificationIndex/>}/>
-        <Route path="account" element={<AccountIndex/>}/>
       </Route>
+      <Route path="account" element={<AccountDashboardLayout/>}/>
     </Routes>
   </AuthProvider>
 }
@@ -71,12 +72,10 @@ function AuthProvider({children}){
           switch(jsonResponse.messageType){
             case "SUCCESS":
               setIsLoggedIn(true)
-              //return true
               didUserLogIn = true
               break
             case "ERROR":
               setIsLoggedIn(false)
-              //return false
               didUserLogIn = false
               break
             default:

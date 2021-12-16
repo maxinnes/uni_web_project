@@ -6,12 +6,12 @@ import LoginModal from "../CommonComponents/modals/LoginModal";
 import CreateAccountModal from "../CommonComponents/modals/CreateAccountModal";
 
 function WelcomePages(){
-    return <>
+    return <div className="container mt-4">
         <HomePageNavigation />
         <Outlet />
         <CreateAccountModal />
         <LoginModal />
-    </>
+    </div>
 }
 
 export default WelcomePages
