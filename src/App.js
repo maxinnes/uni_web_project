@@ -1,11 +1,10 @@
-import {Route, Routes, useLocation, Navigate} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import HomeIndex from "./Pages/HomeIndex";
 import PricingIndex from "./Pages/PricingIndex";
 import AboutIndex from "./Pages/AboutIndex";
 import VerificationIndex from "./Pages/VerificationIndex";
 import WelcomePages from "./Layouts/WelcomePages";
-import AccountIndex from "./Pages/AccountIndex";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {AuthContext} from "./AuthContext";
 import AccountDashboardLayout from "./Layouts/AccountDashboardLayout";
 
