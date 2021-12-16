@@ -1,8 +1,11 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import * as bootstrap from "bootstrap";
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../AuthContext";
 
 export default function LoginModal(){
+    // Import auth context
+    let auth = useContext(AuthContext)
     // Methods
     const emailValidation = (element)=>{
         const emailInputElement = element
@@ -40,7 +43,7 @@ export default function LoginModal(){
         setToastMessage(message)
         toast.show()
     }
-    const submitAndValidateLoginForm = ()=>{
+    const submitAndValidateLoginForm = async ()=>{
         // Get form elements
         const emailElement = document.getElementById("loginEmailInput")
         const passwordElement = document.getElementById("loginPasswordInput")
@@ -53,38 +56,47 @@ export default function LoginModal(){
             // build request
             const email = emailElement.value
             const password = passwordElement.value
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            const raw = JSON.stringify({
-                "email": email,
-                "password": password
-            })
-            const requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-            fetch("/api/accounts/login.php", requestOptions)
-                .then(async response => {
-                    const jsonResponse = await response.json()
-                    switch(jsonResponse.messageType){
-                        case "SUCCESS":
-                            //window.location.assign("/account") // TODO Replace with react router version of this
-                            //const loginModal = new bootstrap.Modal(document.getElementById('loginModal'))
-                            const loginModalElement = document.getElementById('loginModal')
-                            const loginModal = bootstrap.Modal.getInstance(loginModalElement)
-                            loginModal.hide()
-                            navigate("/account")
-                            break
-                        case "ERROR":
-                            displayErrorToast(jsonResponse.message)
-                            break
-                        default:
-                            displayErrorToast("Something went wrong.")
-                    }
-                })
-                .catch(error => console.log('error', error));
+            const isUserLoggedIn = await auth.login(email,password)
+            if(isUserLoggedIn){
+                const loginModalElement = document.getElementById('loginModal')
+                const loginModal = bootstrap.Modal.getOrCreateInstance(loginModalElement)
+                loginModal.hide()
+
+                navigate("/account")
+            }else{
+                displayErrorToast("Something went wrong.")
+            }
+            // const myHeaders = new Headers();
+            // myHeaders.append("Content-Type", "application/json");
+            // const raw = JSON.stringify({
+            //     "email": email,
+            //     "password": password
+            // })
+            // const requestOptions = {
+            //     method: 'POST',
+            //     headers: myHeaders,
+            //     body: raw,
+            //     redirect: 'follow'
+            // };
+            // fetch("/api/accounts/login.php", requestOptions)
+            //     .then(async response => {
+            //         const jsonResponse = await response.json()
+            //         switch(jsonResponse.messageType){
+            //             case "SUCCESS":
+            //                 const loginModalElement = document.getElementById('loginModal')
+            //                 const loginModal = bootstrap.Modal.getInstance(loginModalElement)
+            //                 loginModal.hide()
+            //                 auth.setIsLoggedIn(true)
+            //                 navigate("/account")
+            //                 break
+            //             case "ERROR":
+            //                 displayErrorToast(jsonResponse.message)
+            //                 break
+            //             default:
+            //                 displayErrorToast("Something went wrong.")
+            //         }
+            //     })
+            //     .catch(error => console.log('error', error));
         }
     }
     // Variables

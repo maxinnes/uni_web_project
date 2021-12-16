@@ -1,5 +1,3 @@
-function Logo(){
+export default function Logo(){
     return <div className="logo"/>
 }
-
-export default Logo;
