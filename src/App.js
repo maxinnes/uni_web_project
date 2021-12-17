@@ -6,6 +6,7 @@ import {AuthContext} from "./AuthContext";
 // Layouts
 import WelcomePages from "./Layouts/WelcomePages";
 import AccountDashboardLayout from "./Layouts/AccountDashboardLayout";
+import FinishAccountSetupLayout from "./Layouts/FinishAccountSetupLayout";
 // Pages
 import HomeIndex from "./Pages/HomeIndex";
 import PricingIndex from "./Pages/PricingIndex";
@@ -13,7 +14,7 @@ import AboutIndex from "./Pages/AboutIndex";
 import VerificationIndex from "./Pages/VerificationIndex";
 import DashboardIndex from "./Pages/DashboardIndex";
 import AccountIndex from "./Pages/AccountIndex";
-import FinishAccountSetupLayout from "./Layouts/FinishAccountSetupLayout";
+import ChoosePlanIndex from "./Pages/ChoosePlanIndex";
 
 export default function App(){
   return <AuthProvider>
@@ -28,7 +29,9 @@ export default function App(){
         <Route index element={<DashboardIndex/>}/>
         <Route path="account" element={<AccountIndex/>}/>
       </Route>
-      <Route path="finishAccountSetup" element={<FinishAccountSetupLayout/>} />
+      <Route path="finishAccountSetup" element={<FinishAccountSetupLayout/>}>
+        <Route index element={<ChoosePlanIndex/>}/>
+      </Route>
     </Routes>
   </AuthProvider>
 }

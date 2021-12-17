@@ -2,7 +2,7 @@ import {useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../AuthContext";
 import {Outlet, NavLink} from "react-router-dom";
-import '../scss/AccountDashboard.css';
+import '../scss/AccountDashboard.module.css';
 
 export default function AccountDashboardLayout(){
     let auth = useContext(AuthContext)

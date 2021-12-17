@@ -1,38 +1,43 @@
-// Declare vars
-$main-font: 'Bebas Neue', cursive;
-$secondary-font: 'museo-sans', sans-serif;
+@import "Variables";
 
-// Navigation style
-nav {
+//// Navigation style
+.home-nav {
   ul {
     list-style: none;
     text-align: center;
+
     li {
       display: inline-block;
-      a{
+
+      a {
         font-size: 23px;
         font-family: $secondary-font;
         text-decoration: none;
         transition: all .5s;
 
-        position:relative;
+        position: relative;
         z-index: 1;
       }
-      a.active{
+
+      a.active {
         color: white !important;
       }
-      a.active:after{
+
+      a.active:after {
         opacity: 1;
         visibility: visible;
         height: 100%;
       }
-      a:hover{
+
+      a:hover {
         color: white !important;
       }
-      a:before{
+
+      a:before {
         transition: all .5s;
       }
-      a:after{
+
+      a:after {
         transition: all .5s;
 
         display: block;
@@ -51,6 +56,7 @@ nav {
         opacity: 0;
         z-index: -1;
       }
+
       a:hover:after {
         opacity: 1;
         visibility: visible;
@@ -59,6 +65,7 @@ nav {
     }
   }
 }
+//}
 .logo{
   background-image: url("../images/logo.png");
   background-position: center;
@@ -66,7 +73,7 @@ nav {
   width: 100px;
   height: 100px;
 }
-// Home page body elements
+//// Home page body elements
 .main-page-hero-image{
   background-image: url("../images/hero_image.jpeg");
   background-position: center;

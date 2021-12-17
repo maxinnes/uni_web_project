@@ -1,26 +1,26 @@
-nav ul {
+.home-nav ul {
   list-style: none;
   text-align: center; }
-  nav ul li {
+  .home-nav ul li {
     display: inline-block; }
-    nav ul li a {
+    .home-nav ul li a {
       font-size: 23px;
       font-family: "museo-sans", sans-serif;
       text-decoration: none;
       transition: all .5s;
       position: relative;
       z-index: 1; }
-    nav ul li a.active {
+    .home-nav ul li a.active {
       color: white !important; }
-    nav ul li a.active:after {
+    .home-nav ul li a.active:after {
       opacity: 1;
       visibility: visible;
       height: 100%; }
-    nav ul li a:hover {
+    .home-nav ul li a:hover {
       color: white !important; }
-    nav ul li a:before {
+    .home-nav ul li a:before {
       transition: all .5s; }
-    nav ul li a:after {
+    .home-nav ul li a:after {
       transition: all .5s;
       display: block;
       position: absolute;
@@ -37,7 +37,7 @@ nav ul {
       visibility: hidden;
       opacity: 0;
       z-index: -1; }
-    nav ul li a:hover:after {
+    .home-nav ul li a:hover:after {
       opacity: 1;
       visibility: visible;
       height: 100%; }
@@ -54,4 +54,4 @@ nav ul {
   background-position: center;
   background-size: contain; }
 
-/*# sourceMappingURL=main.css.map */
+/*# sourceMappingURL=WelcomePages.module.css.map */

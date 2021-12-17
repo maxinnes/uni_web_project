@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,UAAW;EACT,SAAS,EAAE,KAAK;;AAElB,KAAK;EACH,gBAAgB,EAAE,yBAAyB;EAC3C,mBAAmB,EAAE,MAAM;EAC3B,eAAe,EAAE,OAAO;EACxB,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK;EACb,MAAM,EAAE,aAAa",
+"sources": ["FinishAccountSetup.module.scss"],
+"names": [],
+"file": "FinishAccountSetup.module.css"
+}
