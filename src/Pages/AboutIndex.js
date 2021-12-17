@@ -1,4 +1,4 @@
-function AboutIndex(){
+export default function AboutIndex(){
     return <div className="row mt-4">
         <div className="col-md-3"/>
         <div className="col-md-6">
@@ -8,5 +8,3 @@ function AboutIndex(){
         <div className="col-md-3"/>
     </div>
 }
-
-export default AboutIndex

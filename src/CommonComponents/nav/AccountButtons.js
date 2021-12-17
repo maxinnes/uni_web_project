@@ -12,8 +12,8 @@ export default function AccountButtons(){
     </>
     const loggedInButtons = <>
         <button onClick={auth.logout} type="button" className="btn btn-outline-dark me-3">Logout</button>
-        <NavLink to="/account">
-            <button type="button" className="btn btn-dark">Account</button>
+        <NavLink to="/dashboard">
+            <button type="button" className="btn btn-dark">Dashboard</button>
         </NavLink>
     </>
 

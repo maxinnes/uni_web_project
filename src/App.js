@@ -1,12 +1,19 @@
+// Imports
+import {useEffect, useState} from "react";
 import {Route, Routes} from "react-router-dom";
+// Context
+import {AuthContext} from "./AuthContext";
+// Layouts
+import WelcomePages from "./Layouts/WelcomePages";
+import AccountDashboardLayout from "./Layouts/AccountDashboardLayout";
+// Pages
 import HomeIndex from "./Pages/HomeIndex";
 import PricingIndex from "./Pages/PricingIndex";
 import AboutIndex from "./Pages/AboutIndex";
 import VerificationIndex from "./Pages/VerificationIndex";
-import WelcomePages from "./Layouts/WelcomePages";
-import {useEffect, useState} from "react";
-import {AuthContext} from "./AuthContext";
-import AccountDashboardLayout from "./Layouts/AccountDashboardLayout";
+import DashboardIndex from "./Pages/DashboardIndex";
+import AccountIndex from "./Pages/AccountIndex";
+import FinishAccountSetupLayout from "./Layouts/FinishAccountSetupLayout";
 
 export default function App(){
   return <AuthProvider>
@@ -17,7 +24,11 @@ export default function App(){
         <Route path="about" element={<AboutIndex/>}/>
         <Route path="verify/:verificationCode" element={<VerificationIndex/>}/>
       </Route>
-      <Route path="account" element={<AccountDashboardLayout/>}/>
+      <Route path="dashboard" element={<AccountDashboardLayout/>}>
+        <Route index element={<DashboardIndex/>}/>
+        <Route path="account" element={<AccountIndex/>}/>
+      </Route>
+      <Route path="finishAccountSetup" element={<FinishAccountSetupLayout/>} />
     </Routes>
   </AuthProvider>
 }

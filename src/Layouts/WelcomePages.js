@@ -1,5 +1,7 @@
 // Routing components
 import {Outlet} from "react-router-dom";
+// Styling
+import '../scss/main.css';
 // Import components
 import HomePageNavigation from "../CommonComponents/nav/HomePageNavigation";
 import LoginModal from "../CommonComponents/modals/LoginModal";
