@@ -1,6 +1,6 @@
 import {NavLink} from "react-router-dom";
 import {useContext} from "react";
-import {AuthContext} from "../../AuthContext";
+import {AuthContext} from "../../Context/AuthContext";
 
 export default function AccountButtons(){
     let auth = useContext(AuthContext)

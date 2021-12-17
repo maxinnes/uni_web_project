@@ -2,7 +2,7 @@
 import {useEffect, useState} from "react";
 import {Route, Routes} from "react-router-dom";
 // Context
-import {AuthContext} from "./AuthContext";
+import {AuthContext} from "./Context/AuthContext";
 // Layouts
 import WelcomePages from "./Layouts/WelcomePages";
 import AccountDashboardLayout from "./Layouts/AccountDashboardLayout";

@@ -1,7 +1,7 @@
 import {useContext, useState} from "react";
 import * as bootstrap from "bootstrap";
 import {useNavigate} from "react-router-dom";
-import {AuthContext} from "../../AuthContext";
+import {AuthContext} from "../../Context/AuthContext";
 
 export default function LoginModal(){
     // Import auth context

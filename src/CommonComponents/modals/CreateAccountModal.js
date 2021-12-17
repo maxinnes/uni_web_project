@@ -1,6 +1,8 @@
 import React from "react";
 import * as bootstrap from 'bootstrap';
 
+// TODO Create Account should start session for that account
+
 class CreateAccountModal extends React.Component{
 
     submitButton = <button onClick={()=>this.validateAndSubmitForm()} type="submit" className="btn btn-dark">Submit</button>

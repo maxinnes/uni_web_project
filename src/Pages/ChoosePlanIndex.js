@@ -1,173 +1,121 @@
+import {SubscriptionCheckoutContext} from "../Context/SubscriptionCheckoutContext";
+import {useContext, useEffect} from "react";
+
 export default function ChoosePlanIndex(){
+    let subscriptionCheckout = useContext(SubscriptionCheckoutContext)
+
+    // useEffect(()=>{
+    //
+    // },[subscriptionCheckout.subscriptionChoice])
+
+    const updateSubscriptionChoice = (element)=>{
+        // Update old elements
+        let oldUserChoiceElement
+        switch(subscriptionCheckout.subscriptionChoice){
+            case "1":
+                oldUserChoiceElement = document.getElementById("tierOneCard")
+                break
+            case "2":
+                oldUserChoiceElement = document.getElementById("tierTwoCard")
+                break
+            case "3":
+                oldUserChoiceElement = document.getElementById("tierThreeCard")
+                break
+            default:
+                console.log("Error")
+        }
+        oldUserChoiceElement.lastElementChild.lastElementChild.classList.remove("btn-dark")
+        oldUserChoiceElement.lastElementChild.lastElementChild.classList.add("btn-outline-dark")
+        oldUserChoiceElement.lastElementChild.lastElementChild.innerText = "Select"
+        oldUserChoiceElement.classList.remove("border-dark")
+        oldUserChoiceElement.firstElementChild.classList.remove("text-white")
+        oldUserChoiceElement.firstElementChild.classList.remove("bg-dark")
+        // Update new elements
+        element.classList.add("btn-dark")
+        element.classList.remove("btn-outline-dark")
+        element.innerText = "Selected"
+        const userChoice = element.value
+        subscriptionCheckout.setSubscriptionChoice(userChoice)
+        let newUserChoiceElement
+        switch(userChoice){
+            case "1":
+                newUserChoiceElement = document.getElementById("tierOneCard")
+                break
+            case "2":
+                newUserChoiceElement = document.getElementById("tierTwoCard")
+                break
+            case "3":
+                newUserChoiceElement = document.getElementById("tierThreeCard")
+                break
+            default:
+                console.log("Error")
+        }
+        newUserChoiceElement.classList.add("border-dark")
+        newUserChoiceElement.firstElementChild.classList.add("text-white")
+        newUserChoiceElement.firstElementChild.classList.add("bg-dark")
+    }
+
     return <div className="row g-5">
+        <div className="col-md col-lg"/>
         <div className="col-md-7 col-lg-8">
             <h4 className="mb-3">Choose a plan</h4>
-            <form className="needs-validation" noValidate>
-                <div className="row g-3">
-                    <div className="col-sm-6">
-                        <label htmlFor="firstName" className="form-label">First name</label>
-                        <input type="text" className="form-control" id="firstName" placeholder="" value=""
-                               required/>
-                        <div className="invalid-feedback">
-                            Valid first name is required.
+
+            <div className="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                <div className="col">
+                    <div id="tierOneCard" className="card mb-4 rounded-3 shadow-sm border-dark">
+                        <div className="card-header py-3 bg-dark text-white">
+                            <h4 className="my-0 fw-normal">Tier One</h4>
                         </div>
-                    </div>
-
-                    <div className="col-sm-6">
-                        <label htmlFor="lastName" className="form-label">Last name</label>
-                        <input type="text" className="form-control" id="lastName" placeholder="" value=""
-                               required/>
-                        <div className="invalid-feedback">
-                            Valid last name is required.
-                        </div>
-                    </div>
-
-                    <div className="col-12">
-                        <label htmlFor="username" className="form-label">Username</label>
-                        <div className="input-group has-validation">
-                            <span className="input-group-text">@</span>
-                            <input type="text" className="form-control" id="username" placeholder="Username"
-                                   required />
-                            <div className="invalid-feedback">
-                                Your username is required.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-12">
-                        <label htmlFor="email" className="form-label">Email <span
-                            className="text-muted">(Optional)</span></label>
-                        <input type="email" className="form-control" id="email" placeholder="you@example.com" />
-                        <div className="invalid-feedback">
-                            Please enter a valid email address for shipping updates.
-                        </div>
-                    </div>
-
-                    <div className="col-12">
-                        <label htmlFor="address" className="form-label">Address</label>
-                        <input type="text" className="form-control" id="address" placeholder="1234 Main St"
-                               required/>
-                        <div className="invalid-feedback">
-                            Please enter your shipping address.
-                        </div>
-                    </div>
-
-                    <div className="col-12">
-                        <label htmlFor="address2" className="form-label">Address 2 <span
-                            className="text-muted">(Optional)</span></label>
-                        <input type="text" className="form-control" id="address2"
-                               placeholder="Apartment or suite"/>
-                    </div>
-
-                    <div className="col-md-5">
-                        <label htmlFor="country" className="form-label">Country</label>
-                        <select className="form-select" id="country" required>
-                            <option value="">Choose...</option>
-                            <option>United States</option>
-                        </select>
-                        <div className="invalid-feedback">
-                            Please select a valid country.
-                        </div>
-                    </div>
-
-                    <div className="col-md-4">
-                        <label htmlFor="state" className="form-label">State</label>
-                        <select className="form-select" id="state" required>
-                            <option value="">Choose...</option>
-                            <option>California</option>
-                        </select>
-                        <div className="invalid-feedback">
-                            Please provide a valid state.
-                        </div>
-                    </div>
-
-                    <div className="col-md-3">
-                        <label htmlFor="zip" className="form-label">Zip</label>
-                        <input type="text" className="form-control" id="zip" placeholder="" required/>
-                        <div className="invalid-feedback">
-                            Zip code required.
+                        <div className="card-body">
+                            <h1 className="card-title pricing-card-title">Free</h1>
+                            <ul className="list-unstyled mt-3 mb-4">
+                                <li>1 Store</li>
+                                <li>10 Products</li>
+                                <li>1GB Storage</li>
+                                <li>15% Of Transactions</li>
+                            </ul>
+                            <button value="1" onClick={(event)=>{updateSubscriptionChoice(event.target)}} type="button" className="w-100 btn btn-lg btn-dark">Selected</button>
                         </div>
                     </div>
                 </div>
-
-                <hr className="my-4"/>
-
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="same-address"/>
-                    <label className="form-check-label" htmlFor="same-address">Shipping address is the
-                        same as my billing address</label>
-                </div>
-
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="save-info"/>
-                    <label className="form-check-label" htmlFor="save-info">Save this information for
-                        next time</label>
-                </div>
-
-                <hr className="my-4"/>
-
-                <h4 className="mb-3">Payment</h4>
-
-                <div className="my-3">
-                    <div className="form-check">
-                        <input id="credit" name="paymentMethod" type="radio"
-                               className="form-check-input" checked required/>
-                        <label className="form-check-label" htmlFor="credit">Credit card</label>
-                    </div>
-                    <div className="form-check">
-                        <input id="debit" name="paymentMethod" type="radio" className="form-check-input"
-                               required/>
-                        <label className="form-check-label" htmlFor="debit">Debit card</label>
-                    </div>
-                    <div className="form-check">
-                        <input id="paypal" name="paymentMethod" type="radio"
-                               className="form-check-input" required/>
-                        <label className="form-check-label" htmlFor="paypal">PayPal</label>
-                    </div>
-                </div>
-
-                <div className="row gy-3">
-                    <div className="col-md-6">
-                        <label htmlFor="cc-name" className="form-label">Name on card</label>
-                        <input type="text" className="form-control" id="cc-name" placeholder=""
-                               required/>
-                        <small className="text-muted">Full name as displayed on card</small>
-                        <div className="invalid-feedback">
-                            Name on card is required
+                <div className="col">
+                    <div id="tierTwoCard" className="card mb-4 rounded-3 shadow-sm">
+                        <div className="card-header py-3">
+                            <h4 className="my-0 fw-normal">Tier Two</h4>
                         </div>
-                    </div>
-
-                    <div className="col-md-6">
-                        <label htmlFor="cc-number" className="form-label">Credit card number</label>
-                        <input type="text" className="form-control" id="cc-number" placeholder=""
-                               required/>
-                        <div className="invalid-feedback">
-                            Credit card number is required
-                        </div>
-                    </div>
-
-                    <div className="col-md-3">
-                        <label htmlFor="cc-expiration" className="form-label">Expiration</label>
-                        <input type="text" className="form-control" id="cc-expiration" placeholder=""
-                               required/>
-                        <div className="invalid-feedback">
-                            Expiration date required
-                        </div>
-                    </div>
-
-                    <div className="col-md-3">
-                        <label htmlFor="cc-cvv" className="form-label">CVV</label>
-                        <input type="text" className="form-control" id="cc-cvv" placeholder="" required/>
-                        <div className="invalid-feedback">
-                            Security code required
+                        <div className="card-body">
+                            <h1 className="card-title pricing-card-title">£5<small
+                                className="text-muted fw-light">/mo</small></h1>
+                            <ul className="list-unstyled mt-3 mb-4">
+                                <li>3 Stores</li>
+                                <li>30 Products</li>
+                                <li>10GB Storage</li>
+                                <li>15% Of Transactions</li>
+                            </ul>
+                            <button value="2" onClick={(event)=>{updateSubscriptionChoice(event.target)}} type="button" className="w-100 btn btn-lg btn-outline-dark">Select</button>
                         </div>
                     </div>
                 </div>
-
-                <hr className="my-4" />
-
-                <button className="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
-            </form>
+                <div className="col">
+                    <div id="tierThreeCard" className="card mb-4 rounded-3 shadow-sm">
+                        <div className="card-header py-3">
+                            <h4 className="my-0 fw-normal">Tier Three</h4>
+                        </div>
+                        <div className="card-body">
+                            <h1 className="card-title pricing-card-title">£25<small
+                                className="text-muted fw-light">/mo</small></h1>
+                            <ul className="list-unstyled mt-3 mb-4">
+                                <li>Unlimited Stores</li>
+                                <li>Unlimited Products</li>
+                                <li>1TB Storage</li>
+                                <li>5% Of Transactions</li>
+                            </ul>
+                            <button value="3" onClick={(event)=>{updateSubscriptionChoice(event.target)}} type="button" className="w-100 btn btn-lg btn-outline-dark">Select</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div className="col-md col-lg"/>
     </div>
 }
