@@ -1,10 +1,17 @@
-import {NavLink} from "react-router-dom";
-import {useContext, useState} from "react";
+import {NavLink, useNavigate} from "react-router-dom";
+import {useContext, useEffect} from "react";
 import {SubscriptionCheckoutContext} from "../Context/SubscriptionCheckoutContext";
 
 export default function AccountSetupCheckoutIndex (){
+    let navigate = useNavigate()
     let subscriptionCheckout = useContext(SubscriptionCheckoutContext)
-    const [selectedPlanTitle,setSelectedPlanTitle] = useState()
+    //const [selectedPlanTitle,setSelectedPlanTitle] = useState()
+
+    useEffect(()=>{
+        if(subscriptionCheckout.subscriptionChoice==null){
+            navigate("/finishAccountSetup")
+        }
+    },[])
 
     return <div className="row g-5">
         <div className="col-md-5 col-lg-4 order-md-last">
