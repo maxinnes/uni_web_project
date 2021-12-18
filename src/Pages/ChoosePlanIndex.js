@@ -1,12 +1,41 @@
 import {SubscriptionCheckoutContext} from "../Context/SubscriptionCheckoutContext";
-import {useContext, useEffect} from "react";
+import {useContext, useState, useEffect} from "react";
+import {NavLink} from "react-router-dom";
+
+// TODO When page loads select the default plan
 
 export default function ChoosePlanIndex(){
     let subscriptionCheckout = useContext(SubscriptionCheckoutContext)
+    let [disabledButton,setDisabledButton] = useState("disabled")
 
-    // useEffect(()=>{
-    //
-    // },[subscriptionCheckout.subscriptionChoice])
+    useEffect(()=>{
+        let selectPlan
+        switch(subscriptionCheckout.subscriptionChoice){
+            case "1":
+                selectPlan = document.getElementById("tierOneCard")
+                break
+            case "2":
+                selectPlan = document.getElementById("tierTwoCard")
+                break
+            case "3":
+                selectPlan = document.getElementById("tierThreeCard")
+                break
+        }
+        if(subscriptionCheckout.subscriptionChoice!=null) {
+            selectPlan.classList.add("border-dark")
+            selectPlan.firstElementChild.classList.add("text-white")
+            selectPlan.firstElementChild.classList.add("bg-dark")
+            selectPlan.lastElementChild.lastElementChild.classList.add("btn-dark")
+            selectPlan.lastElementChild.lastElementChild.classList.remove("btn-outline-dark")
+            selectPlan.lastElementChild.lastElementChild.innerText = "Selected"
+        }
+    },[])
+
+    useEffect(()=>{
+        if(subscriptionCheckout.subscriptionChoice!=null){
+            setDisabledButton("")
+        }
+    },[subscriptionCheckout.subscriptionChoice])
 
     const updateSubscriptionChoice = (element)=>{
         // Update old elements
@@ -22,14 +51,16 @@ export default function ChoosePlanIndex(){
                 oldUserChoiceElement = document.getElementById("tierThreeCard")
                 break
             default:
-                console.log("Error")
+                console.log("None chosen")
         }
-        oldUserChoiceElement.lastElementChild.lastElementChild.classList.remove("btn-dark")
-        oldUserChoiceElement.lastElementChild.lastElementChild.classList.add("btn-outline-dark")
-        oldUserChoiceElement.lastElementChild.lastElementChild.innerText = "Select"
-        oldUserChoiceElement.classList.remove("border-dark")
-        oldUserChoiceElement.firstElementChild.classList.remove("text-white")
-        oldUserChoiceElement.firstElementChild.classList.remove("bg-dark")
+        if(subscriptionCheckout.subscriptionChoice!=null) {
+            oldUserChoiceElement.lastElementChild.lastElementChild.classList.remove("btn-dark")
+            oldUserChoiceElement.lastElementChild.lastElementChild.classList.add("btn-outline-dark")
+            oldUserChoiceElement.lastElementChild.lastElementChild.innerText = "Select"
+            oldUserChoiceElement.classList.remove("border-dark")
+            oldUserChoiceElement.firstElementChild.classList.remove("text-white")
+            oldUserChoiceElement.firstElementChild.classList.remove("bg-dark")
+        }
         // Update new elements
         element.classList.add("btn-dark")
         element.classList.remove("btn-outline-dark")
@@ -50,20 +81,22 @@ export default function ChoosePlanIndex(){
             default:
                 console.log("Error")
         }
-        newUserChoiceElement.classList.add("border-dark")
-        newUserChoiceElement.firstElementChild.classList.add("text-white")
-        newUserChoiceElement.firstElementChild.classList.add("bg-dark")
+        if(newUserChoiceElement!=null) {
+            newUserChoiceElement.classList.add("border-dark")
+            newUserChoiceElement.firstElementChild.classList.add("text-white")
+            newUserChoiceElement.firstElementChild.classList.add("bg-dark")
+        }
     }
 
     return <div className="row g-5">
         <div className="col-md col-lg"/>
-        <div className="col-md-7 col-lg-8">
+        <div className="col-md-10 col-lg-10">
             <h4 className="mb-3">Choose a plan</h4>
 
             <div className="row row-cols-1 row-cols-md-3 mb-3 text-center">
                 <div className="col">
-                    <div id="tierOneCard" className="card mb-4 rounded-3 shadow-sm border-dark">
-                        <div className="card-header py-3 bg-dark text-white">
+                    <div id="tierOneCard" className="card mb-4 rounded-3 shadow-sm">
+                        <div className="card-header py-3">
                             <h4 className="my-0 fw-normal">Tier One</h4>
                         </div>
                         <div className="card-body">
@@ -74,7 +107,7 @@ export default function ChoosePlanIndex(){
                                 <li>1GB Storage</li>
                                 <li>15% Of Transactions</li>
                             </ul>
-                            <button value="1" onClick={(event)=>{updateSubscriptionChoice(event.target)}} type="button" className="w-100 btn btn-lg btn-dark">Selected</button>
+                            <button value="1" onClick={(event)=>{updateSubscriptionChoice(event.target)}} type="button" className="w-100 btn btn-lg btn-outline-dark">Select</button>
                         </div>
                     </div>
                 </div>
@@ -114,6 +147,11 @@ export default function ChoosePlanIndex(){
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="row justify-content-center">
+                {/*<NavLink className="w-auto" to="continue"><button className="btn btn-dark">Continue</button></NavLink>*/}
+                {/*<NavLink className="w-auto" to="continue">{disabledButton}</NavLink>*/}
+                <NavLink to="continue" className={"w-auto btn btn-dark "+disabledButton} role="button">Continue</NavLink>
             </div>
         </div>
         <div className="col-md col-lg"/>

@@ -15,6 +15,7 @@ import VerificationIndex from "./Pages/VerificationIndex";
 import DashboardIndex from "./Pages/DashboardIndex";
 import AccountIndex from "./Pages/AccountIndex";
 import ChoosePlanIndex from "./Pages/ChoosePlanIndex";
+import AccountSetupCheckoutIndex from "./Pages/AccountSetupCheckoutIndex";
 
 export default function App(){
   return <AuthProvider>
@@ -31,6 +32,7 @@ export default function App(){
       </Route>
       <Route path="finishAccountSetup" element={<FinishAccountSetupLayout/>}>
         <Route index element={<ChoosePlanIndex/>}/>
+        <Route path="continue" element={<AccountSetupCheckoutIndex/>} />
       </Route>
     </Routes>
   </AuthProvider>
