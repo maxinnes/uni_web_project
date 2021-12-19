@@ -1,7 +1,7 @@
 @import "Variables";
 
 //// Navigation style
-.home-nav {
+:global .home-nav {
   ul {
     list-style: none;
     text-align: center;
