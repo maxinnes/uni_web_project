@@ -1,11 +1,11 @@
 import {NavLink, useNavigate} from "react-router-dom";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {SubscriptionCheckoutContext} from "../Context/SubscriptionCheckoutContext";
 
 export default function AccountSetupCheckoutIndex (){
     let navigate = useNavigate()
     let subscriptionCheckout = useContext(SubscriptionCheckoutContext)
-    //const [selectedPlanTitle,setSelectedPlanTitle] = useState()
+    let [subscriptionDetails,setSubscriptionDetails] = useState({name:"Not selected",cost:"N/A"})
 
     useEffect(()=>{
         if(subscriptionCheckout.subscriptionChoice==null){
@@ -13,22 +13,31 @@ export default function AccountSetupCheckoutIndex (){
         }
     },[])
 
+    useEffect(()=>{
+        switch(subscriptionCheckout.subscriptionChoice){
+            case "1":
+                setSubscriptionDetails({name:"Tier One",cost:"Free"})
+                break
+            case "2":
+                setSubscriptionDetails({name:"Tier Two",cost:"£5/MO"})
+                break
+            case "3":
+                setSubscriptionDetails({name:"Tier Three",cost:"£25/MO"})
+                break
+            default:
+                console.log("Error")
+        }
+    },[subscriptionCheckout.subscriptionChoice])
+
     return <div className="row g-5">
         <div className="col-md-5 col-lg-4 order-md-last">
             <h4 className="d-flex justify-content-between align-items-center mb-3">
                 Your subscription choice
             </h4>
             <ul className="list-group mb-3">
-                <li className="list-group-item d-flex justify-content-between lh-sm">
-                    <div>
-                        <h6 className="my-0">Product name</h6>
-                        <small className="text-muted">Brief description</small>
-                    </div>
-                    <span className="text-muted">$12</span>
-                </li>
                 <li className="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
-                    <strong>$20</strong>
+                    <span>{subscriptionDetails.name}</span>
+                    <strong>{subscriptionDetails.cost}</strong>
                 </li>
             </ul>
         </div>
