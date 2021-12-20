@@ -1,7 +1,8 @@
-import {useParams} from "react-router-dom";
+import {useParams,useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 export default function VerificationIndex(){
+    let navigate = useNavigate()
     const [errorMessage,setErrorMessage] = useState("Loading...")
     const params = useParams()
     //const verificationCode = params.verificationCode
@@ -18,12 +19,9 @@ export default function VerificationIndex(){
         fetch(`/api/email/verifyEmailAddress.php?vc=${verificationCode}`, requestOptions)
             .then(async response => {
                 const jsonResponse = await response.json()
-                console.log(jsonResponse)
-                console.log(jsonResponse.message)
-                console.log(jsonResponse.messageType)
                 switch(jsonResponse.messageType){
                     case "SUCCESS":
-                        window.location.assign("/account")
+                        navigate("/finishAccountSetup")
                         break
                     case "ERROR":
                         setErrorMessage(jsonResponse.message)
