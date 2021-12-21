@@ -16,6 +16,7 @@ import DashboardIndex from "./Pages/DashboardIndex";
 import AccountIndex from "./Pages/AccountIndex";
 import ChoosePlanIndex from "./Pages/ChoosePlanIndex";
 import AccountSetupCheckoutIndex from "./Pages/AccountSetupCheckoutIndex";
+import StoreManagerIndex from "./Pages/StoreManagerIndex";
 
 export default function App(){
   return <AuthProvider>
@@ -29,6 +30,7 @@ export default function App(){
       <Route path="dashboard" element={<AccountDashboardLayout/>}>
         <Route index element={<DashboardIndex/>}/>
         <Route path="account" element={<AccountIndex/>}/>
+        <Route path="storeManager" element={<StoreManagerIndex/>} />
       </Route>
       <Route path="finishAccountSetup" element={<FinishAccountSetupLayout/>}>
         <Route index element={<ChoosePlanIndex/>}/>
@@ -43,28 +45,43 @@ function AuthProvider({children}){
   let [isLoggedIn,setIsLoggedIn] = useState(false)
   // Manual update isLoggedIn
   const updateIsLoggedIn = ()=>{
+    async function getStatus() {
+      const requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      const response = await fetch("/api/accounts/isLoggedIn.php", requestOptions)
+      const jsonResponse = await response.json()
+      if(jsonResponse.messageType==="SUCCESS"){
+        setIsLoggedIn(true)
+        return true
+      }else{
+        setIsLoggedIn(false)
+        return false
+      }
+    }
+    return getStatus()
+  }
+  // Get auth details
+  const getAccountAuthDetails = async ()=>{
+    const myHeaders = new Headers();
     const requestOptions = {
       method: 'GET',
+      headers: myHeaders,
       redirect: 'follow'
     };
-    fetch("/api/accounts/isLoggedIn.php", requestOptions)
-        .then(async response => {
-          const jsonResponse = await response.json()
-          switch(jsonResponse.messageType){
-            case "SUCCESS":
-              setIsLoggedIn(true)
-              break
-            case "ERROR":
-              setIsLoggedIn(false)
-              break
-            default:
-              setIsLoggedIn(false)
-          }
-        })
-        .catch(error => console.log('error', error));
+    const response = await fetch("/api/accounts/getAccountAuthDetails.php", requestOptions)
+    const jsonResponse = await response.json()
+    if(jsonResponse.messageType==="SUCCESS"){
+      return jsonResponse.result;
+    }else{
+      return jsonResponse.result;
+    }
   }
   // Define effect
-  useEffect(updateIsLoggedIn,[])
+  useEffect(()=>{
+    updateIsLoggedIn()
+  },[])
   // Define methods
   const login = async (email,password)=>{
     const myHeaders = new Headers();
@@ -120,7 +137,7 @@ function AuthProvider({children}){
         .catch(error => console.log('error', error));
   }
   // Define context value
-  let value = {isLoggedIn,login,logout,updateIsLoggedIn}
+  let value = {isLoggedIn,login,logout,updateIsLoggedIn,getAccountAuthDetails}
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

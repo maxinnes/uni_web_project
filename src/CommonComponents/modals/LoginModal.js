@@ -62,7 +62,7 @@ export default function LoginModal(){
                 const loginModal = bootstrap.Modal.getOrCreateInstance(loginModalElement)
                 loginModal.hide()
 
-                navigate("/account")
+                navigate("/dashboard")
             }else{
                 displayErrorToast("Something went wrong.")
             }
