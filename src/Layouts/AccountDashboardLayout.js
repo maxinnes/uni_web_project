@@ -51,7 +51,7 @@ export default function AccountDashboardLayout(){
                                 <NavLink to="storeManager" className="nav-link text-white">Store Management</NavLink>
                             </li>
                         </ul>
-                        <a onClick={logoutButton}>Logout</a>
+                        <a className={`link-primary ${styles.logoutLink}`} onClick={logoutButton}>Logout</a>
                     </div>
                 </div>
             </div>

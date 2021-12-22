@@ -26,4 +26,13 @@
 .dropdown-toggle {
   outline: 0; }
 
+.logoutLink {
+  cursor: pointer;
+  text-decoration: none;
+  color: white; }
+
+.create-new-store-btn {
+  margin-left: auto;
+  margin-right: auto; }
+
 /*# sourceMappingURL=AccountDashboard.module.css.map */

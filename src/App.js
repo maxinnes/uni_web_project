@@ -1,6 +1,6 @@
 // Imports
 import {useEffect, useState} from "react";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 // Context
 import {AuthContext} from "./Context/AuthContext";
 // Layouts
@@ -17,6 +17,7 @@ import AccountIndex from "./Pages/AccountIndex";
 import ChoosePlanIndex from "./Pages/ChoosePlanIndex";
 import AccountSetupCheckoutIndex from "./Pages/AccountSetupCheckoutIndex";
 import StoreManagerIndex from "./Pages/StoreManagerIndex";
+import StoreEditIndex from "./Pages/StoreEditIndex";
 
 export default function App(){
   return <AuthProvider>
@@ -26,11 +27,15 @@ export default function App(){
         <Route path="pricing" element={<PricingIndex/>} />
         <Route path="about" element={<AboutIndex/>}/>
         <Route path="verify/:verificationCode" element={<VerificationIndex/>}/>
+        <Route path="*" element={
+          <Navigate to="/" />
+        }/>
       </Route>
       <Route path="dashboard" element={<AccountDashboardLayout/>}>
         <Route index element={<DashboardIndex/>}/>
         <Route path="account" element={<AccountIndex/>}/>
         <Route path="storeManager" element={<StoreManagerIndex/>} />
+        <Route path="storeManager/:storeId" element={<StoreEditIndex/>} />
       </Route>
       <Route path="finishAccountSetup" element={<FinishAccountSetupLayout/>}>
         <Route index element={<ChoosePlanIndex/>}/>
