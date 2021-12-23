@@ -51,7 +51,7 @@ export default function StoreEditIndex(){
         if(jsonResponse.messageType==="SUCCESS"){
             let tempList = []
             for(let x in jsonResponse.result){
-                tempList.push(<ProductView key={x} productId={jsonResponse.result[x]["productId"]} name={jsonResponse.result[x]["name"]} description={jsonResponse.result[x]["description"]}
+                tempList.push(<ProductView key={x} refreshProductsCallback={getProductsByStoreId} productId={jsonResponse.result[x]["productId"]} name={jsonResponse.result[x]["name"]} description={jsonResponse.result[x]["description"]}
                                            price={jsonResponse.result[x]["price"]}/>)
             }
             setListOfProducts(tempList)
@@ -151,6 +151,20 @@ function ProductView(props){
         editProductIdElement.value = props.productId
     }
 
+    const deleteProductById = async ()=>{
+        const myHeaders = new Headers();
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+        const response = await fetch(`/api/products/deleteProductById.php?id=${props.productId}`, requestOptions)
+        const jsonResponse = await response.json()
+        if(jsonResponse.messageType==="SUCCESS"){
+            props.refreshProductsCallback()
+        }
+    }
+
     return <div className="col my-3">
         <div className="card">
             {/*<img src="" className="card-img-top" alt="..."/>*/}
@@ -160,8 +174,8 @@ function ProductView(props){
                     <p className="card-text">Price: £{props.price}</p>
                 </div>
                 <div className="card-body">
-                    <a href="#" className="card-link">Delete</a>
                     <a onClick={loadEditModal} data-bs-toggle="modal" data-bs-target="#editProductModal" data-bs-productId={props.productId} href="#" className="card-link">Edit</a>
+                    <a onClick={deleteProductById} href="#" className="card-link">Delete</a>
                     <a href="#" className="card-link">Add image</a>
                 </div>
         </div>
