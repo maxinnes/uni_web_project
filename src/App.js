@@ -7,6 +7,7 @@ import {AuthContext} from "./Context/AuthContext";
 import WelcomePages from "./Layouts/WelcomePages";
 import AccountDashboardLayout from "./Layouts/AccountDashboardLayout";
 import FinishAccountSetupLayout from "./Layouts/FinishAccountSetupLayout";
+import StoreLayout from "./Layouts/StoreLayout";
 // Pages
 import HomeIndex from "./Pages/HomeIndex";
 import PricingIndex from "./Pages/PricingIndex";
@@ -41,6 +42,7 @@ export default function App(){
         <Route index element={<ChoosePlanIndex/>}/>
         <Route path="continue" element={<AccountSetupCheckoutIndex/>} />
       </Route>
+      <Route path="store/:storeUrl" element={<StoreLayout/>}/>
     </Routes>
   </AuthProvider>
 }
