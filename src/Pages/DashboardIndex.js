@@ -58,7 +58,7 @@ export default function DashboardIndex(){
 
     <canvas className="my-4 w-100" id="myChart" width="900" height="380"/>
 
-    <h2>Recent sales</h2>
+    <h2>Orders</h2>
     <div className="table-responsive">
         <table className="table table-striped table-sm">
             <thead>

@@ -62,41 +62,15 @@ export default function LoginModal(){
                 const loginModal = bootstrap.Modal.getOrCreateInstance(loginModalElement)
                 loginModal.hide()
 
+                const modalBackdropElement = document.querySelector(".modal-backdrop")
+                modalBackdropElement.remove()
+
+                loginModalElement.remove()
+
                 navigate("/dashboard")
             }else{
                 displayErrorToast("Something went wrong.")
             }
-            // const myHeaders = new Headers();
-            // myHeaders.append("Content-Type", "application/json");
-            // const raw = JSON.stringify({
-            //     "email": email,
-            //     "password": password
-            // })
-            // const requestOptions = {
-            //     method: 'POST',
-            //     headers: myHeaders,
-            //     body: raw,
-            //     redirect: 'follow'
-            // };
-            // fetch("/api/accounts/login.php", requestOptions)
-            //     .then(async response => {
-            //         const jsonResponse = await response.json()
-            //         switch(jsonResponse.messageType){
-            //             case "SUCCESS":
-            //                 const loginModalElement = document.getElementById('loginModal')
-            //                 const loginModal = bootstrap.Modal.getInstance(loginModalElement)
-            //                 loginModal.hide()
-            //                 auth.setIsLoggedIn(true)
-            //                 navigate("/account")
-            //                 break
-            //             case "ERROR":
-            //                 displayErrorToast(jsonResponse.message)
-            //                 break
-            //             default:
-            //                 displayErrorToast("Something went wrong.")
-            //         }
-            //     })
-            //     .catch(error => console.log('error', error));
         }
     }
     // Variables
