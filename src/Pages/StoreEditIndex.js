@@ -1,9 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 
-// TODO delete and add image options
-// TODO Create actual store page (User will need to make url option in create store dialog)
-
 export default function StoreEditIndex(){
     const params = useParams()
     let [storeDetails,setStoreDetails] = useState({
@@ -73,7 +70,6 @@ export default function StoreEditIndex(){
             "storeId": params.storeId,
             "name": nameInput,
             "description": descriptionInput,
-            "image": "",
             "price": priceInput
         });
         const requestOptions = {
@@ -135,6 +131,7 @@ export default function StoreEditIndex(){
             </div>
         </div>
         <EditProductModal/>
+        <AddImageModal/>
     </>
 }
 
@@ -164,6 +161,10 @@ function ProductView(props){
             props.refreshProductsCallback()
         }
     }
+    const loadImageUploader = ()=>{
+        document.getElementById("imageUploaderProductId").value = props.productId
+        document.getElementById("imageUploaderInput").value = ""
+    }
 
     return <div className="col my-3">
         <div className="card">
@@ -176,7 +177,7 @@ function ProductView(props){
                 <div className="card-body">
                     <a onClick={loadEditModal} data-bs-toggle="modal" data-bs-target="#editProductModal" data-bs-productId={props.productId} href="#" className="card-link">Edit</a>
                     <a onClick={deleteProductById} href="#" className="card-link">Delete</a>
-                    <a href="#" className="card-link">Add image</a>
+                    <a onClick={loadImageUploader} data-bs-toggle="modal" data-bs-target="#imageUploader" href="#" className="card-link">Add image</a>
                 </div>
         </div>
     </div>
@@ -248,6 +249,40 @@ function EditProductModal(){
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" className="btn btn-dark" data-bs-dismiss="modal" onClick={submitForm}>Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+function AddImageModal(){
+
+    const submitImage = ()=>{
+        const imageInputElement = document.getElementById("imageUploaderInput")
+
+        const data = new FormData()
+        data.append('file',imageInputElement.files[0])
+
+
+    }
+
+    return <div className="modal fade" id="imageUploader">
+        <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title">Image uploader</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                </div>
+                <div className="modal-body">
+                    <input type="hidden" id="imageUploaderProductId"/>
+                    <div className="mb-3">
+                        <label htmlFor="imageUploaderInput" className="form-label">Default file input example</label>
+                        <input className="form-control" type="file" id="imageUploaderInput" accept="image/*"/>
+                    </div>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-dark">Save changes</button>
                 </div>
             </div>
         </div>

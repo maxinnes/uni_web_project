@@ -1,4 +1,13 @@
+import {useEffect} from "react";
+import {useParams} from "react-router-dom";
+
 export default function StoreLayout(){
+    let params = useParams()
+
+    useEffect(()=>{
+
+    },[])
+
     return <>
         <header>
             <div className="collapse bg-dark" id="navbarHeader">
@@ -35,7 +44,7 @@ export default function StoreLayout(){
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false"
                             aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"/>
                     </button>
                 </div>
             </div>
@@ -265,7 +274,6 @@ export default function StoreLayout(){
                     </div>
                 </div>
             </div>
-
         </main>
 
         <footer className="text-muted py-5">
