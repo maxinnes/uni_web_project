@@ -49,7 +49,7 @@ export default function StoreEditIndex(){
             let tempList = []
             for(let x in jsonResponse.result){
                 tempList.push(<ProductView key={x} refreshProductsCallback={getProductsByStoreId} productId={jsonResponse.result[x]["productId"]} name={jsonResponse.result[x]["name"]} description={jsonResponse.result[x]["description"]}
-                                           price={jsonResponse.result[x]["price"]}/>)
+                                           price={jsonResponse.result[x]["price"]} image={jsonResponse.result[x]["image"]}/>)
             }
             setListOfProducts(tempList)
         }
@@ -131,7 +131,7 @@ export default function StoreEditIndex(){
             </div>
         </div>
         <EditProductModal/>
-        <AddImageModal/>
+        <AddImageModal refreshProductsCallback={getProductsByStoreId}/>
     </>
 }
 
@@ -168,7 +168,7 @@ function ProductView(props){
 
     return <div className="col my-3">
         <div className="card">
-            {/*<img src="" className="card-img-top" alt="..."/>*/}
+            {props.image!=="" && <img src={`http://localhost/images/${props.image}`} className="card-img-top" alt=""/>}
                 <div className="card-body">
                     <h5 className="card-title">{props.name}</h5>
                     <p className="card-text">{props.description}</p>
@@ -255,15 +255,27 @@ function EditProductModal(){
     </div>
 }
 
-function AddImageModal(){
+function AddImageModal(props){
 
-    const submitImage = ()=>{
+    const submitImage = async ()=>{
         const imageInputElement = document.getElementById("imageUploaderInput")
-
+        const imageIdInputElement = document.getElementById("imageUploaderProductId")
+        // Build request
+        const myHeaders = new Headers();
         const data = new FormData()
-        data.append('file',imageInputElement.files[0])
-
-
+        data.append('productImage',imageInputElement.files[0])
+        data.append('productId',imageIdInputElement.value)
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: data,
+            redirect: 'follow'
+        };
+        const response = await fetch("/api/products/uploadProductImage.php", requestOptions)
+        const jsonResponse = await response.json()
+        if(jsonResponse.messageType==="SUCCESS"){
+            props.refreshProductsCallback()
+        }
     }
 
     return <div className="modal fade" id="imageUploader">
@@ -282,7 +294,7 @@ function AddImageModal(){
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-dark">Save changes</button>
+                    <button type="button" className="btn btn-dark" onClick={submitImage} data-bs-dismiss="modal">Save changes</button>
                 </div>
             </div>
         </div>
