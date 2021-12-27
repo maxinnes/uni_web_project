@@ -1,4 +1,9 @@
+import {AuthContext} from "../Context/AuthContext";
+import {useContext} from "react";
+
 export default function PricingIndex(){
+    let auth = useContext(AuthContext)
+
     return <div className="row mt-4">
         <div className="col-md-1"/>
         <div className="col-md">
@@ -12,7 +17,7 @@ export default function PricingIndex(){
                         <li className="list-group-item">1GB Storage</li>
                         <li className="list-group-item">15% Of Transactions</li>
                     </ul>
-                    <a href="#" className="mt-3 btn btn-dark">Buy</a>
+                    {auth.isLoggedIn ? <p /> : <a data-bs-toggle="modal" data-bs-target="#createAccountModal" href="#" className="mt-3 btn btn-dark">Buy</a>}
                 </div>
             </div>
         </div>
@@ -27,7 +32,8 @@ export default function PricingIndex(){
                         <li className="list-group-item">10GB Storage</li>
                         <li className="list-group-item">15% Of Transactions</li>
                     </ul>
-                    <a href="#" className="mt-3 btn btn-dark">Buy</a>
+                    {auth.isLoggedIn ? <p/> : <a data-bs-toggle="modal" data-bs-target="#createAccountModal" href="#"
+                        className="mt-3 btn btn-dark">Buy</a>}
                 </div>
             </div>
         </div>
@@ -42,7 +48,8 @@ export default function PricingIndex(){
                         <li className="list-group-item">1TB Storage</li>
                         <li className="list-group-item">5% Of Transactions</li>
                     </ul>
-                    <a href="#" className="mt-3 btn btn-dark">Buy</a>
+                    {auth.isLoggedIn ? <p/> : <a data-bs-toggle="modal" data-bs-target="#createAccountModal" href="#"
+                        className="mt-3 btn btn-dark">Buy</a>}
                 </div>
             </div>
         </div>

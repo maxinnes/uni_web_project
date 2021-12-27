@@ -77,5 +77,6 @@
 .main-page-hero-image{
   background-image: url("../images/hero_image.jpeg");
   background-position: center;
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
 }

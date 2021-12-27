@@ -11,6 +11,9 @@ function WelcomePages(){
     return <div className="container mt-4">
         <HomePageNavigation />
         <Outlet />
+        <footer className="row mt-5">
+            <p className="text-center text-muted">© 2021 Mercator</p>
+        </footer>
         <CreateAccountModal />
         <LoginModal />
     </div>
