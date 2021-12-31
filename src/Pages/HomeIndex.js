@@ -18,7 +18,7 @@ function HomeIndex() {
         </div>
         <div className={`col-md-6 ${styles["main-page-hero-image"]}`}/>
     </div>
-    <div className="px-4 pt-5 my-5 text-center">
+    <div className="row my-5 text-center">
         <h1 className="display-4 fw-bold">Centered screenshot</h1>
         <div className="col-lg-6 mx-auto">
             <p className="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the
@@ -27,7 +27,7 @@ function HomeIndex() {
         </div>
         <div className="overflow-hidden" style={{maxHeight: "30vh"}}>
             <div className="container px-5">
-                <img src="http://localhost:3000/hero_image.png" className="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
+                <img src="/hero_image.png" className="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
                      width="700" height="500" loading="lazy"/>
             </div>
         </div>

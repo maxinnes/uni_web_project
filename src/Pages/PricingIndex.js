@@ -4,9 +4,8 @@ import {useContext} from "react";
 export default function PricingIndex(){
     let auth = useContext(AuthContext)
 
-    return <div className="row mt-4">
-        <div className="col-md-1"/>
-        <div className="col-md">
+    return <div className="row row-cols-md-3 row-cols-1 mt-4">
+        <div className="col">
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Tier One</h5>
@@ -21,7 +20,7 @@ export default function PricingIndex(){
                 </div>
             </div>
         </div>
-        <div className="col-md">
+        <div className="col my-3 my-md-0">
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Tier Two</h5>
@@ -37,7 +36,7 @@ export default function PricingIndex(){
                 </div>
             </div>
         </div>
-        <div className="col-md">
+        <div className="col">
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Tier Three</h5>
@@ -53,6 +52,5 @@ export default function PricingIndex(){
                 </div>
             </div>
         </div>
-        <div className="col-md-1"/>
     </div>
 }
