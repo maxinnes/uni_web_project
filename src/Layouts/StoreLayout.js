@@ -1,12 +1,6 @@
-import {useEffect, useState, createContext, useContext} from "react";
+import {useEffect, useState, useContext} from "react";
 import {Link, useParams} from "react-router-dom";
-
-// const BasketContext = createContext({
-//     cartItems: [],
-//     storeProducts:{},
-//     addItemToCart:()=>{}
-// })
-const BasketContext = createContext(null)
+import {BasketContext} from "../Context/BasketContext";
 
 export default function StoreLayout(){
     let shop = useContext(BasketContext)
@@ -26,12 +20,12 @@ export default function StoreLayout(){
         getStoreDetails()
     },[])
 
-    useEffect(()=>{
-        if(shop!==null) {
-            setNumberOfItemsInCart(shop.cartItems.length)
-            console.log("NEW RUN")
-        }
-    },[shop.cartItems])
+    // useEffect(()=>{
+    //     if(shop!==null) {
+    //         setNumberOfItemsInCart(shop.cartItems.length)
+    //         console.log("NEW RUN")
+    //     }
+    // },[shop.cartItems])
 
     // Functions
     const getStoreDetails = async ()=>{
@@ -50,10 +44,14 @@ export default function StoreLayout(){
             const productDetails = jsonResponse.result.productDetails
             let tempList = []
             for(let productId in productDetails){
-                tempList.push(<StoreProduct key={productId} productId={productDetails[productId]["productId"]} name={productDetails[productId]["name"]} description={productDetails[productId]["description"]} image={productDetails[productId]["image"]} price={productDetails[productId]["price"]}/>)
+                tempList.push(<StoreProduct key={productId} updateCallback={updateCard} productId={productDetails[productId]["productId"]} name={productDetails[productId]["name"]} description={productDetails[productId]["description"]} image={productDetails[productId]["image"]} price={productDetails[productId]["price"]}/>)
             }
             setProductComponentList(tempList)
         }
+    }
+    const updateCard = ()=>{
+        console.log(shop)
+        setNumberOfItemsInCart(shop.cartItems.length)
     }
 
     return <BasketProvider>
@@ -125,8 +123,8 @@ function BasketProvider({children}){
 
     const addItemToCart = (item)=>{
         let copyOfItems = cartItems
-        cartItems.push(item)
-        setCartItems(cartItems)
+        copyOfItems.push(item)
+        setCartItems(copyOfItems)
     }
 
     //const update
@@ -156,6 +154,7 @@ function StoreProduct(props){
     const addItemToBasket = ()=>{
         console.log("added item")
         shop.addItemToCart(props.productId)
+        props.updateCallback()
     }
 
     return <div className="col">

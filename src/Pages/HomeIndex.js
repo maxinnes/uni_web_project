@@ -19,11 +19,9 @@ function HomeIndex() {
         <div className={`col-md-6 ${styles["main-page-hero-image"]}`}/>
     </div>
     <div className="row my-5 text-center">
-        <h1 className="display-4 fw-bold">Centered screenshot</h1>
+        <h1 className="display-4 fw-bold">Full dashboard</h1>
         <div className="col-lg-6 mx-auto">
-            <p className="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the
-                world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid
-                system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+            <p className="lead mb-4">All plans come with a full dashboard to manage and complete orders.</p>
         </div>
         <div className="overflow-hidden" style={{maxHeight: "30vh"}}>
             <div className="container px-5">
