@@ -39,6 +39,25 @@ export default function StoreCheckoutIndex(){
             return true
         }
     }
+    const validateEmailAddress = (element)=>{
+        const emailInputElement = element
+        const emailValue = emailInputElement.value
+        const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+        if(emailValue.length===0){
+            emailInputElement.classList.add("is-invalid")
+            emailInputElement.nextElementSibling.innerText = "Email is empty"
+            return false
+        }else if(!emailRegex.test(emailValue)){
+            emailInputElement.classList.add("is-invalid")
+            emailInputElement.nextElementSibling.innerText = "Email is invalid"
+            return false
+        }else{
+            emailInputElement.classList.remove("is-invalid")
+            return true
+        }
+
+    }
     const submitPostcode = ()=>{
         if(validatePostcode()) {
             const selectPostcodeElement = document.getElementById("select-postcode-form")
@@ -88,60 +107,58 @@ export default function StoreCheckoutIndex(){
             setSelectedPaymentMethod(selectedElement.value)
         }
     }
-    const submitForm = ()=>{
+    const submitForm = async ()=>{
+        const customerEmailElement = document.getElementById("customerEmailInput")
+        const addressLineOneElement = document.getElementById("address1")
+        const addressLineTwoElement = document.getElementById("address2")
+        const addressLineThreeElement = document.getElementById("address3")
+        const cityElement = document.getElementById("city")
+        const countyElement = document.getElementById("county")
+        const postcodeElement = document.getElementById("postcode")
+
         const addressSelector = document.getElementById("select-postcode-form")
+        if(validateEmailAddress(customerEmailElement) && addressSelector.value!=="Select address..."){
 
-        let raw
-
-        // if(subscriptionCheckout.subscriptionChoice==="1"){
-        //     raw = JSON.stringify({
-        //         "subscriptionChoice":subscriptionCheckout.subscriptionChoice
-        //     })
-        // } else {
-        //     if(addressSelector.value!=="Select address...") {
-        //         raw = JSON.stringify({
-        //             "subscriptionChoice": subscriptionCheckout.subscriptionChoice,
-        //             "addressDetails": {
-        //                 "addressLineOne": selectedAddress.addressLineOne,
-        //                 "addressLineTwo": selectedAddress.addressLineTwo,
-        //                 "addressLineThree": selectedAddress.addressLineThree,
-        //                 "city": selectedAddress.city,
-        //                 "county": selectedAddress.county,
-        //                 "postcode": selectedAddress.postCode
-        //             }
-        //         });
-        //     }
-        // }
-        if(raw!==null) {
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            const requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-            fetch("/api/subscription/createNewSubscription.php", requestOptions)
-                .then(async response => {
-                    console.log(await response)
-                    const jsonResponse = await response.json()
-                    console.log(jsonResponse)
-                    switch (jsonResponse.messageType) {
-                        case "SUCCESS":
-                            navigate("/dashboard")
-                            break
-                        case "ERROR":
-                            displayErrorMessage(jsonResponse.message)
-                            break
-                        default:
-                            displayErrorMessage("Something went wrong...")
-                    }
-                })
-                .catch(error => console.log('error', error));
-        }else{
-            displayErrorMessage("Please select a address")
+        }
+        const storeUrl = params.storeUrl;
+        const customerEmailAddress = customerEmailElement.value
+        const purchasedProducts = []
+        for(let x in shop.cartItems){
+            const newPurchasedProduct = {
+                productId:x,
+                quantity:shop.cartItems[x].quantity
+            }
+            purchasedProducts.push(newPurchasedProduct)
+        }
+        const addressDetails = {
+            addressLineOne:addressLineOneElement.value,
+            addressLineTwo:addressLineTwoElement.value,
+            addressLineThree:addressLineThreeElement.value,
+            city:cityElement.value,
+            county:countyElement.value,
+            postcode:postcodeElement.value
+        }
+        const submitData = {
+            storeUrl:storeUrl,
+            email:customerEmailAddress,
+            purchasedProducts:purchasedProducts,
+            addressDetails:addressDetails
         }
 
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        const raw = JSON.stringify(submitData);
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        const response = await fetch("/api/orders/createNewOrder.php", requestOptions)
+        const jsonResponse = await response.json()
+        if(jsonResponse.messageType==="SUCCESS"){
+            console.log(jsonResponse)
+        }
     }
     const displayErrorMessage = (message)=>{
         const alertElement = document.getElementById("form-error-message")
@@ -202,6 +219,11 @@ export default function StoreCheckoutIndex(){
                     <form className="needs-validation" noValidate>
                         <div className="row g-3">
                             <div className="col-12">
+                                <label className="form-label" htmlFor="customerEmailInput">Email</label>
+                                <input onChange={(event)=>{validateEmailAddress(event.target)}} className="form-control" type="email" id="customerEmailInput"/>
+                                <div className="invalid-feedback"/>
+                            </div>
+                            <div className="col-12">
                                 <label htmlFor="form-postcode" className="form-label">Please enter your postcode</label>
                                 <div className="input-group has-validation">
                                     <input type="text" className="form-control" id="form-postcode" onChange={validatePostcode}/>
@@ -210,7 +232,6 @@ export default function StoreCheckoutIndex(){
                                         Postcode is not correct
                                     </div>
                                 </div>
-
                             </div>
 
                             <div className="col-12">
