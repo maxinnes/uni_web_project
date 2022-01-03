@@ -1,103 +1,16 @@
-import {useEffect, useState, useContext} from "react";
-import {Link, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useParams, Outlet} from "react-router-dom";
 import {BasketContext} from "../Context/BasketContext";
 
 export default function StoreLayout(){
-    let shop = useContext(BasketContext)
-    let [numberOfItemsInCart,setNumberOfItemsInCart] = useState(0)
-
-    let params = useParams()
-    let [productComponentList,setProductComponentList] = useState([])
-    let [storeDetails,setStoreDetails] = useState({
-        storeId:null,
-        storeName:null,
-        created:null,
-        accountId:null,
-        url:null
-    })
-
-    useEffect(()=>{
-        getStoreDetails()
-    },[])
-
-    // useEffect(()=>{
-    //     if(shop!==null) {
-    //         setNumberOfItemsInCart(shop.cartItems.length)
-    //         console.log("NEW RUN")
-    //     }
-    // },[shop.cartItems])
-
-    // Functions
-    const getStoreDetails = async ()=>{
-        const myHeaders = new Headers();
-        const requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-        const response = await fetch(`/api/stores/getStoreByUrl.php?url=${params.storeUrl}`, requestOptions)
-        const jsonResponse = await response.json()
-        if(jsonResponse.messageType==="SUCCESS"){
-            setStoreDetails({
-                storeName:jsonResponse.result.storeDetails.storeName
-            })
-            const productDetails = jsonResponse.result.productDetails
-            let tempList = []
-            for(let productId in productDetails){
-                tempList.push(<StoreProduct key={productId} updateCallback={updateCard} productId={productDetails[productId]["productId"]} name={productDetails[productId]["name"]} description={productDetails[productId]["description"]} image={productDetails[productId]["image"]} price={productDetails[productId]["price"]}/>)
-            }
-            setProductComponentList(tempList)
-        }
-    }
-    const updateCard = ()=>{
-        console.log(shop)
-        setNumberOfItemsInCart(shop.cartItems.length)
-    }
-
     return <BasketProvider>
-        <div className="container-fluid">
-            <header className="row">
-                <div className="col-12 navbar navbar-dark bg-dark shadow-sm">
-                    <div className="container">
-                        <div className="row w-100">
-                            <div className="col-6">
-                                <Link to="" className="navbar-brand d-flex align-items-center">
-                                    <strong>{storeDetails.storeName}</strong>
-                                </Link>
-                            </div>
-                            <div className="col-6 d-flex flex-row align-items-center justify-content-end">
-                                <i style={{color:"white"}} className="fas fa-shopping-basket fs-5">
-                                    <span className="top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    {numberOfItemsInCart}
-                                    </span>
-                                </i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <main className="row">
-                <div className="col-12 album py-5 bg-light">
-                    <div className="container">
-                        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                            {productComponentList}
-                        </div>
-                    </div>
-                </div>
-            </main>
-
-            <footer className="row text-muted py-5">
-                <div className="col-12">
-                </div>
-            </footer>
-        </div>
+        <Outlet/>
     </BasketProvider>
 }
 
 function BasketProvider({children}){
     let params = useParams()
-    let [cartItems,setCartItems] = useState([])
+    let [cartItems,setCartItems] = useState({})
     let [storeProducts,setStoreProducts] = useState({})
 
     // Functions
@@ -121,53 +34,55 @@ function BasketProvider({children}){
         }
     }
 
+    const getNumberOfItemsInCart = ()=>{
+        let numberOfItems = 0
+        for(const prop in cartItems){
+            numberOfItems += cartItems[prop].quantity
+        }
+        return numberOfItems
+    }
+
+    const getItemQuantity = (item)=>{
+        if(cartItems.hasOwnProperty(item)){
+            return cartItems[item].quantity
+        }else{
+            return 0
+        }
+    }
+
+    const removeItemFromCart = (item)=>{
+        let copyOfCartItems = cartItems
+        if(copyOfCartItems[item].quantity===1){
+            delete copyOfCartItems[item]
+        }else{
+            copyOfCartItems[item].quantity -= 1
+        }
+        setCartItems(copyOfCartItems)
+    }
+
     const addItemToCart = (item)=>{
-        let copyOfItems = cartItems
-        copyOfItems.push(item)
-        setCartItems(copyOfItems)
+        let copyOfCartItems = cartItems
+        if(copyOfCartItems.hasOwnProperty(item)){
+            copyOfCartItems[item].quantity +=1
+        }else{
+            copyOfCartItems[item] = {quantity:1}
+        }
+        setCartItems(copyOfCartItems)
     }
 
     //const update
-
     useEffect(()=>{
         getStoreDetails()
     },[])
 
-    // let value = {
-    //     cartItems: cartItems,
-    //     storeProducts:storeProducts,
-    //     addItemToCart:addItemToCart
-    // }
-
     let value = {
         cartItems,
         storeProducts,
-        addItemToCart
+        addItemToCart,
+        removeItemFromCart,
+        getNumberOfItemsInCart,
+        getItemQuantity
     }
 
     return <BasketContext.Provider value={value}>{children}</BasketContext.Provider>
-}
-
-function StoreProduct(props){
-    let shop = useContext(BasketContext)
-
-    const addItemToBasket = ()=>{
-        console.log("added item")
-        shop.addItemToCart(props.productId)
-        props.updateCallback()
-    }
-
-    return <div className="col">
-        <div className="card shadow-sm">
-            {props.image !=="" && <img src={`/images/${props.image}`} className="card-img-top" alt="card image"/>}
-            <div className="card-body">
-                <h5>{props.name}</h5>
-                <p className="card-text">{props.description}</p>
-                <div className="d-flex justify-content-between align-items-center">
-                    <button onClick={addItemToBasket} type="button" className="btn btn-sm btn-dark">Add to basket</button>
-                    <small className="text-muted">£{props.price}</small>
-                </div>
-            </div>
-        </div>
-    </div>
 }

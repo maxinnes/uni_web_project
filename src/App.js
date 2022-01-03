@@ -19,6 +19,8 @@ import ChoosePlanIndex from "./Pages/ChoosePlanIndex";
 import AccountSetupCheckoutIndex from "./Pages/AccountSetupCheckoutIndex";
 import StoreManagerIndex from "./Pages/StoreManagerIndex";
 import StoreEditIndex from "./Pages/StoreEditIndex";
+import StoreIndex from "./Pages/StoreIndex";
+import StoreCheckoutIndex from "./Pages/StoreCheckoutIndex";
 
 export default function App(){
   return <AuthProvider>
@@ -42,7 +44,10 @@ export default function App(){
         <Route index element={<ChoosePlanIndex/>}/>
         <Route path="continue" element={<AccountSetupCheckoutIndex/>} />
       </Route>
-      <Route path="store/:storeUrl" element={<StoreLayout/>}/>
+      <Route path="store" element={<StoreLayout/>}>
+        <Route path=":storeUrl" element={<StoreIndex/>} />
+        <Route path=":storeUrl/checkout" element={<StoreCheckoutIndex/>}/>
+      </Route>
     </Routes>
   </AuthProvider>
 }
