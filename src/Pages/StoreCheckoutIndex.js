@@ -1,6 +1,5 @@
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useState, useEffect, useContext} from "react";
-// import {SubscriptionCheckoutContext} from "../Context/SubscriptionCheckoutContext";
 import {BasketContext} from "../Context/BasketContext";
 import Logo from "../CommonComponents/nav/Logo";
 import styles from "../scss/StoreLayout.module.css"
@@ -24,6 +23,7 @@ export default function StoreCheckoutIndex(){
     let [cartTotalPrice,setCartTotalPrice] = useState(0)
     let [selectedPaymentMethod,setSelectedPaymentMethod] = useState(null)
     let [errorMessage,setErrorMessage] = useState(null)
+    let [hasCheckedOut,setHasCheckedOut] = useState(false)
 
     // Functions
     const validatePostcode = ()=>{
@@ -157,6 +157,7 @@ export default function StoreCheckoutIndex(){
         const response = await fetch("/api/orders/createNewOrder.php", requestOptions)
         const jsonResponse = await response.json()
         if(jsonResponse.messageType==="SUCCESS"){
+            setHasCheckedOut(true)
             console.log(jsonResponse)
         }
     }
@@ -199,7 +200,10 @@ export default function StoreCheckoutIndex(){
                 <Logo />
                 <h2 className="mt-3">Checkout</h2>
             </div>
-            <div className="row g-5">
+            {hasCheckedOut ? <div className="row g-5">
+                <h1>Your order has been placed!</h1>
+                <p>Please check your email for updates.</p>
+            </div> : <div className="row g-5">
                 <div className="col-md-5 col-lg-4 order-md-last">
                     <h4 className="d-flex justify-content-between align-items-center mb-3">
                         <span className="text-dark">Basket</span>
@@ -214,20 +218,27 @@ export default function StoreCheckoutIndex(){
                     </ul>
                 </div>
                 <div className="col-md-7 col-lg-8">
-                    <Link to={`/store/${params.storeUrl}`}><button className="btn btn-dark" type="button">Go back</button></Link>
+                    <Link to={`/store/${params.storeUrl}`}>
+                        <button className="btn btn-dark" type="button">Go back</button>
+                    </Link>
                     <h4 className="mb-3">Billing address</h4>
                     <form className="needs-validation" noValidate>
                         <div className="row g-3">
                             <div className="col-12">
                                 <label className="form-label" htmlFor="customerEmailInput">Email</label>
-                                <input onChange={(event)=>{validateEmailAddress(event.target)}} className="form-control" type="email" id="customerEmailInput"/>
+                                <input onChange={(event) => {
+                                    validateEmailAddress(event.target)
+                                }} className="form-control" type="email" id="customerEmailInput"/>
                                 <div className="invalid-feedback"/>
                             </div>
                             <div className="col-12">
                                 <label htmlFor="form-postcode" className="form-label">Please enter your postcode</label>
                                 <div className="input-group has-validation">
-                                    <input type="text" className="form-control" id="form-postcode" onChange={validatePostcode}/>
-                                    <button onClick={submitPostcode} type="button" className="btn btn-dark" id="submit-postcode">Submit</button>
+                                    <input type="text" className="form-control" id="form-postcode"
+                                           onChange={validatePostcode}/>
+                                    <button onClick={submitPostcode} type="button" className="btn btn-dark"
+                                            id="submit-postcode">Submit
+                                    </button>
                                     <div className="invalid-feedback">
                                         Postcode is not correct
                                     </div>
@@ -236,7 +247,8 @@ export default function StoreCheckoutIndex(){
 
                             <div className="col-12">
                                 <label htmlFor="select-postcode-form" className="form-label">Select your address</label>
-                                <select onChange={selectAddress} className="form-select" id="select-postcode-form" disabled>
+                                <select onChange={selectAddress} className="form-select" id="select-postcode-form"
+                                        disabled>
                                     <option selected>Select address...</option>
                                     {addressOptions}
                                 </select>
@@ -244,32 +256,38 @@ export default function StoreCheckoutIndex(){
 
                             <div className="col-12">
                                 <label htmlFor="address1" className="form-label">Address line 1</label>
-                                <input type="text" className="form-control" id="address1" value={selectedAddress.addressLineOne} disabled/>
+                                <input type="text" className="form-control" id="address1"
+                                       value={selectedAddress.addressLineOne} disabled/>
                             </div>
 
                             <div className="col-12">
                                 <label htmlFor="address2" className="form-label">Address line 2</label>
-                                <input type="text" className="form-control" id="address2" value={selectedAddress.addressLineTwo} disabled/>
+                                <input type="text" className="form-control" id="address2"
+                                       value={selectedAddress.addressLineTwo} disabled/>
                             </div>
 
                             <div className="col-12">
                                 <label htmlFor="address3" className="form-label">Address line 3</label>
-                                <input type="text" className="form-control" id="address3" value={selectedAddress.addressLineThree} disabled/>
+                                <input type="text" className="form-control" id="address3"
+                                       value={selectedAddress.addressLineThree} disabled/>
                             </div>
 
                             <div className="col-md-5">
                                 <label htmlFor="city" className="form-label">City</label>
-                                <input type="text" className="form-control" id="city" value={selectedAddress.city} disabled/>
+                                <input type="text" className="form-control" id="city" value={selectedAddress.city}
+                                       disabled/>
                             </div>
 
                             <div className="col-md-4">
                                 <label htmlFor="county" className="form-label">County</label>
-                                <input type="text" className="form-control" id="county" value={selectedAddress.county} disabled/>
+                                <input type="text" className="form-control" id="county" value={selectedAddress.county}
+                                       disabled/>
                             </div>
 
                             <div className="col-md-3">
                                 <label htmlFor="postcode" className="form-label">Postcode</label>
-                                <input type="text" className="form-control" id="postcode" value={selectedAddress.postCode} disabled/>
+                                <input type="text" className="form-control" id="postcode"
+                                       value={selectedAddress.postCode} disabled/>
                             </div>
                         </div>
 
@@ -278,23 +296,26 @@ export default function StoreCheckoutIndex(){
 
                         <div className="my-3">
                             <div className="form-check">
-                                <input onClick={selectPaymentMethod} id="credit" value="credit" name="paymentMethod" type="radio" className="form-check-input"
+                                <input onClick={selectPaymentMethod} id="credit" value="credit" name="paymentMethod"
+                                       type="radio" className="form-check-input"
                                        required/>
                                 <label className="form-check-label" htmlFor="credit">Credit card</label>
                             </div>
                             <div className="form-check">
-                                <input onClick={selectPaymentMethod} id="debit" value="debit" name="paymentMethod" type="radio" className="form-check-input"
+                                <input onClick={selectPaymentMethod} id="debit" value="debit" name="paymentMethod"
+                                       type="radio" className="form-check-input"
                                        required/>
                                 <label className="form-check-label" htmlFor="debit">Debit card</label>
                             </div>
                             <div className="form-check">
-                                <input onClick={selectPaymentMethod} id="paypal" value="paypal" name="paymentMethod" type="radio" className="form-check-input"
+                                <input onClick={selectPaymentMethod} id="paypal" value="paypal" name="paymentMethod"
+                                       type="radio" className="form-check-input"
                                        required/>
                                 <label className="form-check-label" htmlFor="paypal">PayPal</label>
                             </div>
                         </div>
 
-                        {selectedPaymentMethod!=="paypal" && <div className="row gy-3">
+                        {selectedPaymentMethod !== "paypal" && <div className="row gy-3">
                             <div className="col-md-6">
                                 <label htmlFor="cc-name" className="form-label">Name on card</label>
                                 <input type="text" className="form-control" id="cc-name" placeholder="" required=""/>
@@ -332,9 +353,10 @@ export default function StoreCheckoutIndex(){
                         <hr className="my-4"/>
                     </form>
                     <button onClick={submitForm} className="w-100 btn btn-dark btn-lg" type="button">Checkout</button>
-                    <div id="form-error-message" className="alert alert-danger fade mt-5" role="alert">{errorMessage}</div>
+                    <div id="form-error-message" className="alert alert-danger fade mt-5"
+                         role="alert">{errorMessage}</div>
                 </div>
-            </div>
+            </div>}
         </main>
         <footer className="my-5 pt-5 text-muted text-center text-small">
             <p className="mb-1">&copy; 2021 Mercator</p>

@@ -11,19 +11,20 @@ export default function DashboardOrderIndex(){
         totalPrice: 0
     })
     let [purchasedProducts,setPurchasedProducts] = useState([])
+    let [purchaseAddress,setPurchaseAddress] = useState({
+        addressLineOne:"",
+        addressLineTwo:"",
+        addressLineThree:"",
+        city:"",
+        county:"",
+        postcode:""
+    })
 
-    // orderDetails:
-    // createdDate: "2022-01-03 23:10:17"
-    // customerEmail: "max@maxinnes.co"
-    // orderId: 4
-    // purchasedProducts: Array(4)
-        // 0: {name: 'My First Product', quantity: 1, total: 10}
-        // 1: {name: 'Second product', quantity: 6, total: 270}
-        // 2: {name: 'Third product', quantity: 3, total: 216}
-        // 3: {name: 'Fourth Product ', quantity: 2, total: 552}
-    // status: "In Progress"
-    // storeName: "store name"
-    // totalPrice: 1048
+    let PurchasedProduct = (props)=>{
+        return <>
+            <p>{props.name} x {props.quantity} = £{props.total}</p>
+        </>
+    }
 
     useEffect(()=>{
         const myHeaders = new Headers();
@@ -44,6 +45,21 @@ export default function DashboardOrderIndex(){
                         storeName:orderDetailsResponse.storeName,
                         totalPrice: orderDetailsResponse.totalPrice
                     })
+                    const orderAddressDetails = jsonResponse.result.orderAddressDetails
+                    setPurchaseAddress({
+                        addressLineOne: orderAddressDetails.addressLineOne,
+                        addressLineTwo: orderAddressDetails.addressLineTwo,
+                        addressLineThree: orderAddressDetails.addressLineThree,
+                        city: orderAddressDetails.city,
+                        county: orderAddressDetails.county,
+                        postcode: orderAddressDetails.postcode,
+                    })
+                    let tempList = []
+                    for(let x in orderDetailsResponse.purchasedProducts){
+                        let tempPurchaseProduct = orderDetailsResponse.purchasedProducts[x]
+                        tempList.push(<PurchasedProduct key={x} name={tempPurchaseProduct.name} quantity={tempPurchaseProduct.quantity} total={tempPurchaseProduct.total} />)
+                    }
+                    setPurchasedProducts(tempList)
                 }
             })
     },[])
@@ -59,7 +75,7 @@ export default function DashboardOrderIndex(){
         <p>Customer email: {orderDetails.customerEmail}</p>
         <p>Order status: {orderDetails.status}</p>
         <p>From Store: {orderDetails.storeName}</p>
-        <p>Order total: {orderDetails.totalPrice}</p>
+        <p>Order total: £{orderDetails.totalPrice}</p>
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h3>Products purchased</h3>
         </div>
@@ -67,5 +83,11 @@ export default function DashboardOrderIndex(){
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h3>Order address</h3>
         </div>
+        <p>Address Line One: {purchaseAddress.addressLineOne}</p>
+        <p>Address Line Two: {purchaseAddress.addressLineTwo}</p>
+        <p>Address Line Three: {purchaseAddress.addressLineThree}</p>
+        <p>City: {purchaseAddress.city}</p>
+        <p>County: {purchaseAddress.county}</p>
+        <p>Postcode: {purchaseAddress.postcode}</p>
     </>
 }
