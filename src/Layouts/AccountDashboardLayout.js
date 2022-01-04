@@ -37,18 +37,27 @@ export default function AccountDashboardLayout(){
                             <Logo/>
                         </NavLink>
 
-                        <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                            <li className="d-flex flex-column justify-content-center align-items-center">
-                                <i className="fas fa-tachometer-alt fs-1" />
-                                <NavLink to="/dashboard" className="nav-link text-white">Dashboard</NavLink>
+                        <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small pt-1">
+                            <li>
+                                <NavLink to="/dashboard" className="d-flex flex-column justify-content-center align-items-center">
+                                    <i className={`fas fa-tachometer-alt fs-1 ${styles.navigationBarLinks}`} />
+                                    {/*<NavLink to="/dashboard" className="nav-link text-white">Dashboard</NavLink>*/}
+                                    <p className="nav-link text-white">Dashboard</p>
+                                </NavLink>
                             </li>
                             <li className="d-flex flex-column justify-content-center align-items-center">
-                                <i className="fas fa-user-circle fs-1"/>
-                                <NavLink to="account" className="nav-link text-white">Account Management</NavLink>
+                                <NavLink to="account" className="d-flex flex-column justify-content-center align-items-center">
+                                    <i className={`fas fa-user-circle fs-1 ${styles.navigationBarLinks}`}/>
+                                    {/*<NavLink to="account" className="nav-link text-white">Account Management</NavLink>*/}
+                                    <p className="nav-link text-white">Account Management</p>
+                                </NavLink>
                             </li>
                             <li className="d-flex flex-column justify-content-center align-items-center">
-                                <i className="fas fa-cash-register fs-1"/>
-                                <NavLink to="storeManager" className="nav-link text-white">Store Management</NavLink>
+                                <NavLink to="storeManager" className="d-flex flex-column justify-content-center align-items-center">
+                                    <i className={`fas fa-cash-register fs-1 ${styles.navigationBarLinks}`}/>
+                                    {/*<NavLink to="storeManager" className="nav-link text-white">Store Management</NavLink>*/}
+                                    <p className="nav-link text-white">Store Management</p>
+                                </NavLink>
                             </li>
                         </ul>
                         <a className={`link-primary ${styles.logoutLink}`} onClick={logoutButton}>Logout</a>

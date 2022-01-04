@@ -1,13 +1,14 @@
 import {useEffect, useState} from "react";
 import {Chart} from 'chart.js/dist/Chart.bundle.min'
+import {Link} from "react-router-dom";
 
 export default function DashboardIndex(){
     let [listOfOrderComponents,setListOfOrderComponents] = useState([])
 
     // Custom components
     const AccountOrder = (props)=>{
-        return <tr>
-            <td>{props.orderId}</td>
+        return<tr>
+            <td><Link to={`order/${props.orderId}`}>{props.orderId}</Link></td>
             <td>{props.orderDate}</td>
             <td>{props.orderPrice}</td>
             <td>{props.orderStatus}</td>
