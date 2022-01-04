@@ -21,6 +21,7 @@ import StoreManagerIndex from "./Pages/StoreManagerIndex";
 import StoreEditIndex from "./Pages/StoreEditIndex";
 import StoreIndex from "./Pages/StoreIndex";
 import StoreCheckoutIndex from "./Pages/StoreCheckoutIndex";
+import DashboardOrderIndex from "./Pages/DashboardOrderIndex";
 
 export default function App(){
   return <AuthProvider>
@@ -36,6 +37,7 @@ export default function App(){
       </Route>
       <Route path="dashboard" element={<AccountDashboardLayout/>}>
         <Route index element={<DashboardIndex/>}/>
+        <Route path="order/:orderId" element={<DashboardOrderIndex/>} />
         <Route path="account" element={<AccountIndex/>}/>
         <Route path="storeManager" element={<StoreManagerIndex/>} />
         <Route path="storeManager/:storeId" element={<StoreEditIndex/>} />
