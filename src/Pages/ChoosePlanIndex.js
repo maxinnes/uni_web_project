@@ -2,8 +2,6 @@ import {SubscriptionCheckoutContext} from "../Context/SubscriptionCheckoutContex
 import {useContext, useState, useEffect} from "react";
 import {NavLink} from "react-router-dom";
 
-// TODO When page loads select the default plan
-
 export default function ChoosePlanIndex(){
     let subscriptionCheckout = useContext(SubscriptionCheckoutContext)
     let [disabledButton,setDisabledButton] = useState("disabled")
