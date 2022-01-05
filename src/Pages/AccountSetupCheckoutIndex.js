@@ -182,7 +182,7 @@ export default function AccountSetupCheckoutIndex (){
         <div className="col-md-7 col-lg-8">
             <NavLink to="/finishAccountSetup"><button className="btn btn-dark" type="button">Go back</button></NavLink>
             <h4 className="mb-3">{subscriptionCheckout.subscriptionChoice==="1" ? "continue" : "Billing address"}</h4>
-            {subscriptionCheckout.subscriptionChoice==="1" ? <p>test</p> : <form className="needs-validation" noValidate>
+            {subscriptionCheckout.subscriptionChoice==="1" ? <p>Please continue...</p> : <form className="needs-validation" noValidate>
                 <div className="row g-3">
                     <div className="col-12">
                         <label htmlFor="form-postcode" className="form-label">Please enter your postcode</label>
