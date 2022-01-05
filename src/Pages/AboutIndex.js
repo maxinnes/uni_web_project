@@ -9,7 +9,7 @@ export default function AboutIndex(){
             </div>
         </div>
         <div className="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-            <img className="rounded-lg-3" src="http://localhost:3000/hero_image.png" alt="" width="720"/>
+            <img className="rounded-lg-3" src="/hero_image.png" alt="" width="720"/>
         </div>
     </div>
     </>
