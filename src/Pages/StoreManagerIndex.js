@@ -207,7 +207,7 @@ function StoreListing(props){
         <div className="d-flex gap-2 w-100 justify-content-between">
             <div>
                 <Link to={`${props.storeId}`} className={`${styles.storeDisplayName}`}><h5>{props.storeName}</h5></Link>
-                <p className="fw-light">https://maxinn.es/store/{props.storeUrl}</p>
+                <p className="fw-light">https://maxinn.es/#/store/{props.storeUrl}</p>
             </div>
             <div>
                 <button onClick={editStore} data-bs-toggle="modal" data-bs-target="#editStoreModal" type="button" className="btn btn-outline-dark me-2">Edit</button>
